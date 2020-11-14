@@ -61,7 +61,6 @@ class _PowerItemsState extends State<PowerItems> {
         onPressed: () {
           // onPowerOne();
         },
-        highlightColor: Colors.yellow.withOpacity(0.5),
         padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10.0),
