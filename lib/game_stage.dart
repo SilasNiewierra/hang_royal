@@ -31,10 +31,68 @@ class _GameStageState extends State<GameStage> {
     return Scaffold(
       backgroundColor: Colors.amber,
       body: Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[_buildGraphics(), _buildGameField()],
-        ),
+        child: _buildGameScreen(),
+      ),
+    );
+  }
+
+  Widget _buildGameScreen() {
+    return ValueListenableBuilder(
+        valueListenable: _gameStageBloc.curGuessWord,
+        builder: (ctx, guessWord, child) {
+          if (guessWord == null || guessWord == '') {
+            return _buildIntro();
+          }
+          return ValueListenableBuilder(
+              valueListenable: _gameStageBloc.curGameState,
+              builder: (ctx, gameState, child) {
+                if (gameState == GameState.succeeded ||
+                    gameState == GameState.failed) {
+                  return _buildEnd(gameState);
+                }
+
+                return _buildGame(guessWord);
+              });
+        });
+  }
+
+  Widget _buildGame(String guessWord) {
+    return Container(
+      child: Column(
+        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          _buildGraphics(),
+          Expanded(
+            flex: 1,
+            child: Container(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Puzzle(guessWord: guessWord, gameStageBloc: _gameStageBloc),
+                ],
+              ),
+            ),
+          ),
+          Container(
+            width: 700,
+            height: 300,
+            padding: EdgeInsets.fromLTRB(30.0, 0.0, 30.0, 0.0),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              shape: BoxShape.rectangle,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(25.0),
+                topRight: Radius.circular(25.0),
+              ),
+            ),
+            child: Stack(
+              children: [
+                LetterPicker(gameStageBloc: _gameStageBloc),
+                PowerItems(),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -63,70 +121,8 @@ class _GameStageState extends State<GameStage> {
     );
   }
 
-  Widget _buildGameField() {
-    return ValueListenableBuilder(
-        valueListenable: _gameStageBloc.curGuessWord,
-        builder: (ctx, guessWord, child) {
-          if (guessWord == null || guessWord == '') {
-            return _buildIntro();
-          }
-          return ValueListenableBuilder(
-              valueListenable: _gameStageBloc.curGameState,
-              builder: (ctx, gameState, child) {
-                if (gameState == GameState.succeeded ||
-                    gameState == GameState.failed) {
-                  return _buildEnd(gameState);
-                }
-
-                return _buildGame(guessWord);
-              });
-        });
-  }
-
-  Widget _buildGame(String guessWord) {
-    return Expanded(
-      child: Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Expanded(
-              flex: 1,
-              child: Container(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Puzzle(guessWord: guessWord, gameStageBloc: _gameStageBloc),
-                  ],
-                ),
-              ),
-            ),
-            Container(
-              width: 700,
-              height: 300,
-              padding: EdgeInsets.fromLTRB(30.0, 0.0, 30.0, 0.0),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                shape: BoxShape.rectangle,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(25.0),
-                  topRight: Radius.circular(25.0),
-                ),
-              ),
-              child: Stack(
-                children: [
-                  LetterPicker(gameStageBloc: _gameStageBloc),
-                  PowerItems(),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
   Widget _buildIntro() {
-    return Expanded(
+    return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
@@ -142,7 +138,7 @@ class _GameStageState extends State<GameStage> {
 
   Widget _buildEnd(GameState gameState) {
     if (gameState == GameState.failed) {
-      return Expanded(
+      return Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -153,7 +149,7 @@ class _GameStageState extends State<GameStage> {
         ),
       );
     } else if (gameState == GameState.succeeded) {
-      return Expanded(
+      return Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
