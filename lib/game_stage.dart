@@ -59,7 +59,7 @@ class _GameStageState extends State<GameStage> {
           ),
         ],
       ),
-      child: HangmanGraphic(),
+      child: HangmanGraphic(gameStageBloc: _gameStageBloc),
     );
   }
 

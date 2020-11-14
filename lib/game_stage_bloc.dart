@@ -12,14 +12,16 @@ class GameStageBloc {
       ValueNotifier<List<BodyParts>>([]);
   var _guessedCharacterController = BehaviorSubject<List<String>>();
   Stream<List<String>> get guessedLetters => _guessedCharacterController.stream;
+  var _hangingBodyPartsController = BehaviorSubject<int>();
+  Stream<int> get hangingParts => _hangingBodyPartsController.stream;
 
   void createNewGame() {
     curGameState.value = GameState.running;
     hangingBodyParts.value.clear();
     var guessWord = GuessWordGenerator().generateWord();
     curGuessWord.value = guessWord;
-    print(curGuessWord);
     _guessedCharacterController.sink.add([]);
+    _hangingBodyPartsController.sink.add(0);
   }
 
   void updateGuessedLetter(List<String> updatedGuessedLetters) {
@@ -44,27 +46,36 @@ class GameStageBloc {
   void updateHangingBodyParts() {
     if (!hangingBodyParts.value.contains(BodyParts.head)) {
       hangingBodyParts.value.add(BodyParts.head);
+      _hangingBodyPartsController.sink.add(1);
       return;
     }
     if (!hangingBodyParts.value.contains(BodyParts.body)) {
       hangingBodyParts.value.add(BodyParts.body);
+      _hangingBodyPartsController.sink.add(2);
       return;
     }
     if (!hangingBodyParts.value.contains(BodyParts.arm_left)) {
       hangingBodyParts.value.add(BodyParts.arm_left);
+      _hangingBodyPartsController.sink.add(3);
+
       return;
     }
     if (!hangingBodyParts.value.contains(BodyParts.arm_right)) {
       hangingBodyParts.value.add(BodyParts.arm_right);
+      _hangingBodyPartsController.sink.add(4);
+
       return;
     }
     if (!hangingBodyParts.value.contains(BodyParts.leg_left)) {
       hangingBodyParts.value.add(BodyParts.leg_left);
+      _hangingBodyPartsController.sink.add(5);
 
       return;
     }
     if (!hangingBodyParts.value.contains(BodyParts.leg_right)) {
       hangingBodyParts.value.add(BodyParts.leg_right);
+      _hangingBodyPartsController.sink.add(6);
+
       curGameState.value = GameState.failed;
       return;
     }
@@ -72,5 +83,6 @@ class GameStageBloc {
 
   dispose() {
     _guessedCharacterController.close();
+    _hangingBodyPartsController.close();
   }
 }
