@@ -39,28 +39,6 @@ class _HangmanGraphicState extends State<HangmanGraphic> {
       default:
         return baseUrl + 'orc-default.png';
     }
-
-    // if (widget.gameStageBloc.hangingBodyParts.value
-    //     .contains(BodyParts.leg_right)) {
-    //   return baseUrl + 'orc-leg-right.png';
-    // } else if (widget.gameStageBloc.hangingBodyParts.value
-    //     .contains(BodyParts.leg_left)) {
-    //   return baseUrl + 'orc-leg-left.png';
-    // } else if (widget.gameStageBloc.hangingBodyParts.value
-    //     .contains(BodyParts.arm_right)) {
-    //   return baseUrl + 'orc-arm-right.png';
-    // } else if (widget.gameStageBloc.hangingBodyParts.value
-    //     .contains(BodyParts.arm_left)) {
-    //   return baseUrl + 'orc-arm-left.png';
-    // } else if (widget.gameStageBloc.hangingBodyParts.value
-    //     .contains(BodyParts.body)) {
-    //   return baseUrl + 'orc-body.png';
-    // } else if (widget.gameStageBloc.hangingBodyParts.value
-    //     .contains(BodyParts.head)) {
-    //   return baseUrl + 'orc-head.png';
-    // } else {
-    //   return '';
-    // }
   }
 
   @override
@@ -70,7 +48,7 @@ class _HangmanGraphicState extends State<HangmanGraphic> {
         builder: (BuildContext ctx, AsyncSnapshot<int> hangingStatus) {
           return Center(
             child: Container(
-              width: 100,
+              width: 200,
               child: Image.asset(getAssetUrl(hangingStatus.data)),
             ),
           );
