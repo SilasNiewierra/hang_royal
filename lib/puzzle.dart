@@ -22,6 +22,7 @@ class _PuzzleState extends State<Puzzle> {
         builder: (ctx, AsyncSnapshot<List<String>> guessedLettersSnap) {
           if (!guessedLettersSnap.hasData) return CircularProgressIndicator();
           return Container(
+            padding: EdgeInsets.symmetric(horizontal: 30.0),
             child: Wrap(
               spacing: 8.0,
               runSpacing: 8.0,

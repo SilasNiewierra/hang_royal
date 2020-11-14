@@ -58,70 +58,90 @@ class _LetterPickerState extends State<LetterPicker> {
         builder: (ctx, AsyncSnapshot<List<String>> guessedLettersSnap) {
           if (!guessedLettersSnap.hasData) return CircularProgressIndicator();
 
-          return Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Container(
-                margin: EdgeInsets.fromLTRB(0.0, 50.0, 0.0, 5.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children:
-                      List.generate(alphabetLettersLineOne.length, (index) {
-                    return _buildLetterButton(
-                        guessedLettersSnap.data, alphabetLettersLineOne[index]);
-                  }),
-                ),
+          return Container(
+            padding: EdgeInsets.symmetric(horizontal: 30.0),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(10.0),
+                topRight: Radius.circular(10.0),
               ),
-              Container(
-                margin: EdgeInsets.fromLTRB(0.0, 5.0, 0.0, 5.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children:
-                      List.generate(alphabetLettersLineTwo.length, (index) {
-                    return _buildLetterButton(
-                        guessedLettersSnap.data, alphabetLettersLineTwo[index]);
-                  }),
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  margin: EdgeInsets.fromLTRB(0.0, 50.0, 0.0, 5.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children:
+                        List.generate(alphabetLettersLineOne.length, (index) {
+                      return _buildLetterBox(guessedLettersSnap.data,
+                          alphabetLettersLineOne[index]);
+                    }),
+                  ),
                 ),
-              ),
-              Container(
-                margin: EdgeInsets.fromLTRB(0.0, 5.0, 0.0, 5.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children:
-                      List.generate(alphabetLettersLineThree.length, (index) {
-                    return _buildLetterButton(guessedLettersSnap.data,
-                        alphabetLettersLineThree[index]);
-                  }),
+                Container(
+                  margin: EdgeInsets.fromLTRB(0.0, 5.0, 0.0, 5.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children:
+                        List.generate(alphabetLettersLineTwo.length, (index) {
+                      return _buildLetterBox(guessedLettersSnap.data,
+                          alphabetLettersLineTwo[index]);
+                    }),
+                  ),
                 ),
-              ),
-            ],
+                Container(
+                  margin: EdgeInsets.fromLTRB(0.0, 5.0, 0.0, 5.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children:
+                        List.generate(alphabetLettersLineThree.length, (index) {
+                      return _buildLetterBox(guessedLettersSnap.data,
+                          alphabetLettersLineThree[index]);
+                    }),
+                  ),
+                ),
+              ],
+            ),
           );
         });
   }
 
-  Widget _buildLetterButton(List<String> guessedLetters, String letter) {
+  Widget _buildLetterBox(List<String> guessedLetters, String letter) {
     letter = letter.toUpperCase();
-    return GestureDetector(
-      onTap: () {
-        if (!guessedLetters.contains(letter.toUpperCase())) {
-          guessedLetters.add(letter);
-          widget.gameStageBloc.updateGuessedLetter(guessedLetters);
-
-          if (widget.gameStageBloc.curGuessWord.value.indexOf(letter) < 0) {
-            widget.gameStageBloc.updateHangingBodyParts();
-          }
-        }
-      },
-      child: Container(
-          width: 40.0,
-          height: 40.0,
-          decoration: BoxDecoration(
+    return Container(
+      width: 40.0,
+      height: 40.0,
+      child: FlatButton(
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+        child: Text(
+          letter,
+          style: TextStyle(
+              fontWeight: FontWeight.normal,
+              fontSize: 35.0,
               color: guessedLetters.contains(letter)
                   ? Colors.grey.withOpacity(0.6)
-                  : Colors.grey[800],
-              borderRadius: BorderRadius.circular(4.0)),
-          child: Center(child: Text(letter))),
+                  : Colors.grey[800]),
+        ),
+        onPressed: guessedLetters.contains(letter)
+            ? null
+            : () {
+                guessedLetters.add(letter);
+                widget.gameStageBloc.updateGuessedLetter(guessedLetters);
+
+                if (widget.gameStageBloc.curGuessWord.value.indexOf(letter) <
+                    0) {
+                  widget.gameStageBloc.updateHangingBodyParts();
+                }
+              },
+        highlightColor: Colors.black.withOpacity(0.5),
+        padding: EdgeInsets.all(0.0),
+      ),
+      color: Colors.white.withOpacity(0),
     );
   }
 }

@@ -80,6 +80,33 @@ class _GameStageState extends State<GameStage> {
         });
   }
 
+  Widget _buildGame(String guessWord) {
+    return Expanded(
+      child: Container(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Puzzle(guessWord: guessWord, gameStageBloc: _gameStageBloc),
+            Container(
+              width: 700,
+              height: 300,
+              padding: EdgeInsets.fromLTRB(30.0, 0.0, 30.0, 0.0),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                shape: BoxShape.rectangle,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(25.0),
+                  topRight: Radius.circular(25.0),
+                ),
+              ),
+              child: LetterPicker(gameStageBloc: _gameStageBloc),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   Widget _buildIntro() {
     return Expanded(
       child: Column(
@@ -94,21 +121,6 @@ class _GameStageState extends State<GameStage> {
           ),
           _buildNewGameButton()
         ],
-      ),
-    );
-  }
-
-  Widget _buildGame(String guessWord) {
-    return Expanded(
-      child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 30.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Puzzle(guessWord: guessWord, gameStageBloc: _gameStageBloc),
-            LetterPicker(gameStageBloc: _gameStageBloc),
-          ],
-        ),
       ),
     );
   }
