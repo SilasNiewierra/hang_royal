@@ -59,7 +59,6 @@ class _GameStageState extends State<GameStage> {
   Widget _buildGame(String guessWord) {
     return Container(
       child: Column(
-        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           _buildGraphics(),
           Expanded(
@@ -98,26 +97,58 @@ class _GameStageState extends State<GameStage> {
   }
 
   Widget _buildGraphics() {
-    return Container(
-      width: 700,
-      height: 500,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        shape: BoxShape.rectangle,
-        borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(25.0),
-          bottomRight: Radius.circular(25.0),
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.3),
-            spreadRadius: 5,
-            blurRadius: 10,
-            offset: Offset(0, 3), // changes position of shadow
+    return Column(
+      children: [
+        Container(
+          width: 700,
+          height: 500,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/images/graphics-background.png'),
+              fit: BoxFit.cover,
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.3),
+                spreadRadius: 5,
+                blurRadius: 10,
+                offset: Offset(0, 3),
+              ),
+            ],
           ),
-        ],
-      ),
-      child: HangmanGraphic(gameStageBloc: _gameStageBloc),
+          child: HangmanGraphic(gameStageBloc: _gameStageBloc),
+        ),
+        Container(
+          width: 70,
+          height: 70,
+          transform: Matrix4.translationValues(0.0, -35.0, 0.0),
+          padding: EdgeInsets.all(0),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10.0),
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.3),
+                spreadRadius: 5,
+                blurRadius: 10,
+                offset: Offset(0, 3),
+              ),
+            ],
+          ),
+          child: Align(
+            alignment: Alignment.topCenter,
+            child: Container(
+              width: 70.0,
+              height: 70.0,
+              // color: Colors.red,
+              child: Image.asset(
+                'assets/images/hang_faces/orc.png',
+                fit: BoxFit.fill,
+              ),
+            ),
+          ), // later this will be the selector dart for a character
+        )
+      ],
     );
   }
 

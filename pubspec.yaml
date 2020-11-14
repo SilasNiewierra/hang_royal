@@ -49,6 +49,7 @@ flutter:
   assets:
     - assets/images/power_items/
     - assets/images/hang_characters/orc/
+    - assets/images/hang_faces/
     - assets/images/texts/
     - assets/images/buttons/
     - assets/images/graphics-background.png
