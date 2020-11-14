@@ -166,40 +166,15 @@ class _GameStageState extends State<GameStage> {
   Widget _buildNewGameButton() {
     return Container(
       width: 200,
-      height: 50,
-      decoration: BoxDecoration(
-        image: DecorationImage(
-            image: AssetImage("assets/images/buttons/button-background.png"),
-            fit: BoxFit.cover),
-        borderRadius: BorderRadius.circular(10.0),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black,
-            spreadRadius: 1,
-            blurRadius: 10,
-            offset: Offset(0, 3),
-          ),
-        ],
-      ),
       child: FlatButton(
         onPressed: () {
           _gameStageBloc.createNewGame();
         },
+        padding: EdgeInsets.zero,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10.0),
         ),
-        child: Center(
-          child: Text(
-            "New Game".toUpperCase(),
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.normal,
-              letterSpacing: 3.0,
-              fontFamily: 'Grobold',
-              fontSize: 20.0,
-            ),
-          ),
-        ),
+        child: Image.asset("assets/images/buttons/new-game-button.png"),
       ),
     );
   }
