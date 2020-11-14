@@ -132,10 +132,7 @@ class _GameStageState extends State<GameStage> {
         children: <Widget>[
           Container(
             margin: EdgeInsets.all(30.0),
-            child: Text(
-              "Welcome to Hang-Royal!!",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25.0),
-            ),
+            child: Image.asset('assets/images/texts/game-title.png'),
           ),
           _buildNewGameButton()
         ],
