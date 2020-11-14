@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'game_stage_bloc.dart';
+// import 'game_stage_bloc.dart';
 
 class PowerItems extends StatefulWidget {
   @override
@@ -8,11 +7,12 @@ class PowerItems extends StatefulWidget {
 }
 
 class _PowerItemsState extends State<PowerItems> {
+  String baseAssetUrl = "assets/images/power_items/";
   List powerItems = [
-    ['Poison', '/power-item-poison.png'],
-    ['Wand', '/power-item-wand.png'],
-    ['Crystal', '/power-item-crystal.png'],
-    ['Lamp', '/power-item-lamp.png'],
+    ['Poison', 'power-poison.png'],
+    ['Wand', 'power-wand.png'],
+    ['Crystal', 'power-cristal.png'],
+    ['Lamp', 'power-lamp.png'],
   ];
 
   @override
@@ -41,6 +41,7 @@ class _PowerItemsState extends State<PowerItems> {
           ],
         ),
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: List.generate(
               powerItems.length,
               (index) =>
@@ -49,41 +50,41 @@ class _PowerItemsState extends State<PowerItems> {
       ),
     );
   }
-}
 
-Widget _buildPowerItem(String name, String assetUrl) {
-  print(name + assetUrl.toString());
-  return Container();
-  //   width: 60.0,
-  //   height: 60.0,
-  //   child: FlatButton(
-  //     child: Image.asset(assetUrl),
-  //     onPressed: () {
-  //       // onPowerOne();
-  //     },
-  //     highlightColor: Colors.yellow.withOpacity(0.5),
-  //     padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
-  //     shape: RoundedRectangleBorder(
-  //       borderRadius: BorderRadius.circular(10.0),
-  //     ),
-  //   ),
-  //   decoration: BoxDecoration(
-  //     color: Colors.red.withOpacity(0),
-  //     shape: BoxShape.rectangle,
-  //     borderRadius: BorderRadius.only(
-  //       topLeft: Radius.circular(10.0),
-  //       topRight: Radius.circular(10.0),
-  //       bottomLeft: Radius.circular(10.0),
-  //       bottomRight: Radius.circular(10.0),
-  //     ),
-  //     boxShadow: [
-  //       BoxShadow(
-  //         color: Colors.black.withOpacity(0.3),
-  //         spreadRadius: 1,
-  //         blurRadius: 10,
-  //         offset: Offset(-5, 5),
-  //       ),
-  //     ],
-  //   ),
-  // );
+  Widget _buildPowerItem(String name, String assetUrl) {
+    String imageUrl = baseAssetUrl + assetUrl;
+    return Container(
+      width: 60.0,
+      height: 60.0,
+      child: FlatButton(
+        child: Image.asset(imageUrl),
+        onPressed: () {
+          // onPowerOne();
+        },
+        highlightColor: Colors.yellow.withOpacity(0.5),
+        padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+      ),
+      decoration: BoxDecoration(
+        color: Colors.red.withOpacity(0),
+        shape: BoxShape.rectangle,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(10.0),
+          topRight: Radius.circular(10.0),
+          bottomLeft: Radius.circular(10.0),
+          bottomRight: Radius.circular(10.0),
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.3),
+            spreadRadius: 1,
+            blurRadius: 10,
+            offset: Offset(-5, 5),
+          ),
+        ],
+      ),
+    );
+  }
 }
