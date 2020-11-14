@@ -3,6 +3,10 @@ import 'dart:math';
 class GuessWordGenerator {
   var _possibleWords = [
     'seal',
+    'chick',
+    'grasshoper',
+    'dog',
+    'narwhale',
   ];
 
   String generateWord() {
