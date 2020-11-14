@@ -172,7 +172,9 @@ class _GameStageState extends State<GameStage> {
       width: 200,
       height: 50,
       decoration: BoxDecoration(
-        color: Colors.white,
+        image: DecorationImage(
+            image: AssetImage("assets/images/buttons/button-background.png"),
+            fit: BoxFit.cover),
         borderRadius: BorderRadius.circular(10.0),
         boxShadow: [
           BoxShadow(
@@ -194,8 +196,10 @@ class _GameStageState extends State<GameStage> {
           child: Text(
             "New Game".toUpperCase(),
             style: TextStyle(
-              color: Colors.grey[800],
-              fontWeight: FontWeight.bold,
+              color: Colors.white,
+              fontWeight: FontWeight.normal,
+              letterSpacing: 3.0,
+              fontFamily: 'Grobold',
               fontSize: 20.0,
             ),
           ),
