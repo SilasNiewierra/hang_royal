@@ -68,7 +68,7 @@ class _LetterPickerState extends State<LetterPicker> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children:
                       List.generate(alphabetLettersLineOne.length, (index) {
-                    return _buildLetterButton(
+                    return _buildLetterBox(
                         guessedLettersSnap.data, alphabetLettersLineOne[index]);
                   }),
                 ),
@@ -79,7 +79,7 @@ class _LetterPickerState extends State<LetterPicker> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children:
                       List.generate(alphabetLettersLineTwo.length, (index) {
-                    return _buildLetterButton(
+                    return _buildLetterBox(
                         guessedLettersSnap.data, alphabetLettersLineTwo[index]);
                   }),
                 ),
@@ -90,7 +90,7 @@ class _LetterPickerState extends State<LetterPicker> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children:
                       List.generate(alphabetLettersLineThree.length, (index) {
-                    return _buildLetterButton(guessedLettersSnap.data,
+                    return _buildLetterBox(guessedLettersSnap.data,
                         alphabetLettersLineThree[index]);
                   }),
                 ),
@@ -100,28 +100,38 @@ class _LetterPickerState extends State<LetterPicker> {
         });
   }
 
-  Widget _buildLetterButton(List<String> guessedLetters, String letter) {
+  Widget _buildLetterBox(List<String> guessedLetters, String letter) {
     letter = letter.toUpperCase();
-    return GestureDetector(
-      onTap: () {
-        if (!guessedLetters.contains(letter.toUpperCase())) {
-          guessedLetters.add(letter);
-          widget.gameStageBloc.updateGuessedLetter(guessedLetters);
-
-          if (widget.gameStageBloc.curGuessWord.value.indexOf(letter) < 0) {
-            widget.gameStageBloc.updateHangingBodyParts();
-          }
-        }
-      },
-      child: Container(
-          width: 40.0,
-          height: 40.0,
-          decoration: BoxDecoration(
+    return Container(
+      width: 40.0,
+      height: 40.0,
+      child: FlatButton(
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+        child: Text(
+          letter,
+          style: TextStyle(
+              fontWeight: FontWeight.normal,
+              fontSize: 35.0,
               color: guessedLetters.contains(letter)
                   ? Colors.grey.withOpacity(0.6)
-                  : Colors.grey[800],
-              borderRadius: BorderRadius.circular(4.0)),
-          child: Center(child: Text(letter))),
+                  : Colors.grey[800]),
+        ),
+        onPressed: guessedLetters.contains(letter)
+            ? null
+            : () {
+                guessedLetters.add(letter);
+                widget.gameStageBloc.updateGuessedLetter(guessedLetters);
+
+                if (widget.gameStageBloc.curGuessWord.value.indexOf(letter) <
+                    0) {
+                  widget.gameStageBloc.updateHangingBodyParts();
+                }
+              },
+        highlightColor: Colors.black.withOpacity(0.5),
+        padding: EdgeInsets.all(0.0),
+      ),
+      color: Colors.white.withOpacity(0),
     );
   }
 }
