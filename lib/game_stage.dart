@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hang_royal/game_stage_bloc.dart';
 import 'package:hang_royal/enum_collection.dart';
+import 'package:hang_royal/power_items.dart';
 import 'package:hang_royal/puzzle.dart';
 import 'letter_picker.dart';
 
@@ -109,7 +110,12 @@ class _GameStageState extends State<GameStage> {
                   topRight: Radius.circular(25.0),
                 ),
               ),
-              child: LetterPicker(gameStageBloc: _gameStageBloc),
+              child: Stack(
+                children: [
+                  LetterPicker(gameStageBloc: _gameStageBloc),
+                  PowerItems(),
+                ],
+              ),
             ),
           ],
         ),
