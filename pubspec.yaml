@@ -51,6 +51,7 @@ flutter:
     - assets/images/hang_characters/orc/
     - assets/images/texts/
     - assets/images/buttons/
+    - assets/images/graphics-background.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
