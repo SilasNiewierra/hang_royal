@@ -48,7 +48,7 @@ class _HangmanGraphicState extends State<HangmanGraphic> {
         builder: (BuildContext ctx, AsyncSnapshot<int> hangingStatus) {
           return Center(
             child: Container(
-              width: 200,
+              width: 400,
               child: Image.asset(getAssetUrl(hangingStatus.data)),
             ),
           );

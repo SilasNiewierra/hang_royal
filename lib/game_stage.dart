@@ -138,13 +138,21 @@ class _GameStageState extends State<GameStage> {
 
   Widget _buildEnd(GameState gameState) {
     if (gameState == GameState.failed) {
-      return Center(
+      return Container(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            Text("GAME OVER"),
-            Text("The word was: " + _gameStageBloc.curGuessWord.value),
-            _buildNewGameButton(),
+            _buildGraphics(),
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text("GAME OVER"),
+                  Text("The word was: " + _gameStageBloc.curGuessWord.value),
+                  _buildNewGameButton(),
+                ],
+              ),
+            ),
           ],
         ),
       );

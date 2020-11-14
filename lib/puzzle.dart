@@ -43,7 +43,7 @@ Widget _buildLetterBox(String letter, bool hasBeenGuessed) {
     width: 60.0,
     height: 60.0,
     decoration: BoxDecoration(
-      color: Colors.amber[300],
+      color: Colors.amber[200],
       shape: BoxShape.rectangle,
       borderRadius: BorderRadius.only(
         topLeft: Radius.circular(10.0),
@@ -79,7 +79,7 @@ Widget _buildLetterBox(String letter, bool hasBeenGuessed) {
                 letter,
                 style: TextStyle(
                   color: Colors.grey[800],
-                  fontWeight: FontWeight.normal,
+                  fontWeight: FontWeight.bold,
                   fontSize: 35.0,
                 ),
               ),
