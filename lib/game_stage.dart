@@ -86,12 +86,7 @@ class _GameStageState extends State<GameStage> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Text("Welcome to Hang-Royal"),
-          RaisedButton(
-            child: Text("New Game"),
-            onPressed: () {
-              _gameStageBloc.createNewGame();
-            },
-          ),
+          _buildNewGameButton()
         ],
       ),
     );
@@ -114,32 +109,65 @@ class _GameStageState extends State<GameStage> {
 
   Widget _buildEnd(GameState gameState) {
     if (gameState == GameState.failed) {
-      return Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Text("GAME OVER"),
-          Text("The word was: " + _gameStageBloc.curGuessWord.value),
-          RaisedButton(
-              child: Text("New Game"),
-              onPressed: () {
-                _gameStageBloc.createNewGame();
-              }),
-        ],
+      return Expanded(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text("GAME OVER"),
+            Text("The word was: " + _gameStageBloc.curGuessWord.value),
+            _buildNewGameButton(),
+          ],
+        ),
       );
     } else if (gameState == GameState.succeeded) {
-      return Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Text("YAY, congratulations! You guessed it"),
-          RaisedButton(
-              child: Text("New Game"),
-              onPressed: () {
-                _gameStageBloc.createNewGame();
-              }),
-        ],
+      return Expanded(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text("YAY, congratulations! You guessed it"),
+            _buildNewGameButton(),
+          ],
+        ),
       );
     } else {
       return null;
     }
+  }
+
+  Widget _buildNewGameButton() {
+    return Container(
+      width: 200,
+      height: 50,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(10.0),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black,
+            spreadRadius: 1,
+            blurRadius: 10,
+            offset: Offset(0, 3),
+          ),
+        ],
+      ),
+      child: FlatButton(
+        onPressed: () {
+          _gameStageBloc.createNewGame();
+        },
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        child: Center(
+          child: Text(
+            "New Game".toUpperCase(),
+            style: TextStyle(
+              color: Colors.grey[800],
+              fontWeight: FontWeight.bold,
+              fontSize: 20.0,
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }
