@@ -19,25 +19,25 @@ class _HangmanGraphicState extends State<HangmanGraphic> {
 
     switch (hangingStatus) {
       case 1:
-        return baseUrl + 'orc-head.png';
+        return baseUrl + 'head.png';
         break;
       case 2:
-        return baseUrl + 'orc-body.png';
+        return baseUrl + 'body.png';
         break;
       case 3:
-        return baseUrl + 'orc-arm-left.png';
+        return baseUrl + 'arm-left.png';
         break;
       case 4:
-        return baseUrl + 'orc-arm-right.png';
+        return baseUrl + 'arm-right.png';
         break;
       case 5:
-        return baseUrl + 'orc-leg-left.png';
+        return baseUrl + 'leg-left.png';
         break;
       case 6:
-        return baseUrl + 'orc-leg-right.png';
+        return baseUrl + 'leg-right.png';
         break;
       default:
-        return baseUrl + 'orc-default.png';
+        return baseUrl + 'default.png';
     }
   }
 
@@ -46,10 +46,19 @@ class _HangmanGraphicState extends State<HangmanGraphic> {
     return StreamBuilder(
         stream: widget.gameStageBloc.hangingParts,
         builder: (BuildContext ctx, AsyncSnapshot<int> hangingStatus) {
-          return Center(
-            child: Container(
-              width: 400,
-              child: Image.asset(getAssetUrl(hangingStatus.data)),
+          return Container(
+            width: 350.0,
+            height: 350.0,
+            child: Align(
+              alignment: Alignment.topCenter,
+              child: Container(
+                width: 350.0,
+                height: 350.0,
+                child: Image.asset(
+                  getAssetUrl(hangingStatus.data),
+                  fit: BoxFit.fill,
+                ),
+              ),
             ),
           );
         });
