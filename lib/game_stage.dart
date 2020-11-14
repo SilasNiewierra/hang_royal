@@ -85,7 +85,13 @@ class _GameStageState extends State<GameStage> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Text("Welcome to Hang-Royal"),
+          Container(
+            margin: EdgeInsets.all(30.0),
+            child: Text(
+              "Welcome to Hang-Royal!!",
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25.0),
+            ),
+          ),
           _buildNewGameButton()
         ],
       ),
