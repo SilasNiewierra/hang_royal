@@ -86,7 +86,17 @@ class _GameStageState extends State<GameStage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            Puzzle(guessWord: guessWord, gameStageBloc: _gameStageBloc),
+            Expanded(
+              flex: 1,
+              child: Container(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Puzzle(guessWord: guessWord, gameStageBloc: _gameStageBloc),
+                  ],
+                ),
+              ),
+            ),
             Container(
               width: 700,
               height: 300,
