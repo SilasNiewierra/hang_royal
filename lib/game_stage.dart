@@ -250,6 +250,11 @@ class _GameStageState extends State<GameStage> {
   Widget _buildNewGameButton() {
     return Container(
       width: 200,
+      height: 70,
+      decoration: BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage("assets/images/buttons/button.png"),
+              fit: BoxFit.fill)),
       child: FlatButton(
         onPressed: () {
           _gameStageBloc.createNewGame();
@@ -262,12 +267,12 @@ class _GameStageState extends State<GameStage> {
           'NEW GAME',
           style: TextStyle(
               fontWeight: FontWeight.bold,
-              fontSize: 30.0,
+              fontSize: 20.0,
               color: Colors.white,
               letterSpacing: 5.0),
         ),
 
-        //Image.asset("assets/images/buttons/new-game-button.png"),
+        // child: Image.asset("assets/images/buttons/button.png"),
       ),
     );
   }
