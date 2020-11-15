@@ -66,34 +66,36 @@ class _GameStageState extends State<GameStage> {
     return Container(
       child: Column(
         children: <Widget>[
-          _buildGraphics(),
+          Expanded(
+            flex: 1,
+            child: Container(color: Colors.blue, child: _buildGraphics()),
+          ),
           Expanded(
             flex: 1,
             child: Container(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Puzzle(guessWord: guessWord, gameStageBloc: _gameStageBloc),
-                ],
-              ),
+              color: Colors.red,
+              child: Center(
+                  child: Puzzle(
+                      guessWord: guessWord, gameStageBloc: _gameStageBloc)),
             ),
           ),
-          Container(
-            width: 700,
-            height: 300,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              shape: BoxShape.rectangle,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(25.0),
-                topRight: Radius.circular(25.0),
+          Expanded(
+            flex: 1,
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.green,
+                shape: BoxShape.rectangle,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(25.0),
+                  topRight: Radius.circular(25.0),
+                ),
               ),
-            ),
-            child: Stack(
-              children: [
-                LetterPicker(gameStageBloc: _gameStageBloc),
-                PowerItems(),
-              ],
+              child: Stack(
+                children: [
+                  LetterPicker(gameStageBloc: _gameStageBloc),
+                  // PowerItems(),
+                ],
+              ),
             ),
           ),
         ],
@@ -105,8 +107,6 @@ class _GameStageState extends State<GameStage> {
     return Column(
       children: [
         Container(
-          width: 700,
-          height: 500,
           // decoration: BoxDecoration(
           //   // image: DecorationImage(
           //   //   image: AssetImage('assets/images/graphics-background.png'),

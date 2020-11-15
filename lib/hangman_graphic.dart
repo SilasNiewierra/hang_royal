@@ -90,13 +90,13 @@ class _HangmanGraphicState extends State<HangmanGraphic> {
         stream: widget.gameStageBloc.hangingParts,
         builder: (BuildContext ctx, AsyncSnapshot<int> hangingStatus) {
           return Container(
-            width: 350.0,
-            height: 350.0,
+            // width: 350.0,
+            height: 250.0,
             child: Align(
               alignment: Alignment.topCenter,
               child: Container(
-                width: 350.0,
-                height: 350.0,
+                // width: 350.0,
+                height: 250.0,
                 child: selectGraphic(hangingStatus),
               ),
             ),

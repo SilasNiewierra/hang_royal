@@ -61,7 +61,7 @@ class _LetterPickerState extends State<LetterPicker> {
           return Container(
             padding: EdgeInsets.symmetric(horizontal: 30.0),
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: Colors.green,
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(15.0),
                 topRight: Radius.circular(15.0),
