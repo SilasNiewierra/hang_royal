@@ -102,73 +102,131 @@ class _GameStageState extends State<GameStage> {
   }
 
   Widget _buildGraphics() {
-    return Column(
+    return Stack(
       children: [
-        Container(
-          width: 700,
-          height: 500,
-          // decoration: BoxDecoration(
-          //   // image: DecorationImage(
-          //   //   image: AssetImage('assets/images/graphics-background.png'),
-          //   //   fit: BoxFit.cover,
-          //   // ),
-          //   color: Colors.white,
-          //   borderRadius: BorderRadius.only(
-          //     bottomLeft: Radius.circular(15.0),
-          //     bottomRight: Radius.circular(15.0),
-          //   ),
-          //   boxShadow: [
-          //     BoxShadow(
-          //       color: Colors.black.withOpacity(0.3),
-          //       spreadRadius: 5,
-          //       blurRadius: 10,
-          //       offset: Offset(0, 3),
-          //     ),
-          //   ],
-          // ),
-          child: HangmanGraphic(gameStageBloc: _gameStageBloc),
-        ),
-        Container(
-          width: 70,
-          height: 70,
-          transform: Matrix4.translationValues(0.0, -35.0, 0.0),
-          padding: EdgeInsets.all(0),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10.0),
-            color: Colors.white,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.3),
-                spreadRadius: 5,
-                blurRadius: 10,
-                offset: Offset(0, 3),
-              ),
-            ],
-          ),
-          child: Align(
-            alignment: Alignment.topCenter,
-            child: Container(
-              width: 70.0,
-              height: 70.0,
-              // color: Colors.red,
-              child: FlatButton(
-                onPressed: () {
-                  _gameStageBloc.endGame();
-                },
-                padding: EdgeInsets.zero,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0),
+        HangmanGraphic(gameStageBloc: _gameStageBloc),
+        Positioned(
+          top: 0,
+          left: 0,
+          child: Container(
+            width: 70,
+            height: 70,
+            padding: EdgeInsets.all(0),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10.0),
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.3),
+                  spreadRadius: 5,
+                  blurRadius: 10,
+                  offset: Offset(0, 3),
                 ),
-                child: Image.asset(
-                  'assets/images/hang_faces/orc.png',
-                  fit: BoxFit.fill,
-                ),
-              ),
+              ],
             ),
-          ), // later this will be the selector dart for a character
-        )
+            child: Align(
+              alignment: Alignment.topCenter,
+              child: Container(
+                width: 70.0,
+                height: 70.0,
+                // color: Colors.red,
+                child: FlatButton(
+                  onPressed: () {
+                    // _gameStageBloc.endGame();
+                  },
+                  padding: EdgeInsets.zero,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  child: Image.asset(
+                    'assets/images/hang_faces/orc.png',
+                    fit: BoxFit.fill,
+                  ),
+                ),
+              ),
+            ), // later this will be the selector dart for a character
+          ),
+        ),
+        Positioned(
+          top: 0,
+          right: 0,
+          child: IconButton(
+            onPressed: () {
+              _gameStageBloc.endGame();
+            },
+            icon: Icon(Icons.clear),
+          ),
+        ),
       ],
     );
+
+    // Column(
+    //   children: [
+    //     Container(
+    //       width: 700,
+    //       height: 500,
+    //       // decoration: BoxDecoration(
+    //       //   // image: DecorationImage(
+    //       //   //   image: AssetImage('assets/images/graphics-background.png'),
+    //       //   //   fit: BoxFit.cover,
+    //       //   // ),
+    //       //   color: Colors.white,
+    //       //   borderRadius: BorderRadius.only(
+    //       //     bottomLeft: Radius.circular(15.0),
+    //       //     bottomRight: Radius.circular(15.0),
+    //       //   ),
+    //       //   boxShadow: [
+    //       //     BoxShadow(
+    //       //       color: Colors.black.withOpacity(0.3),
+    //       //       spreadRadius: 5,
+    //       //       blurRadius: 10,
+    //       //       offset: Offset(0, 3),
+    //       //     ),
+    //       //   ],
+    //       // ),
+    //       child: HangmanGraphic(gameStageBloc: _gameStageBloc),
+    //     ),
+    //     Container(
+    //       width: 70,
+    //       height: 70,
+    //       transform: Matrix4.translationValues(0.0, -35.0, 0.0),
+    //       padding: EdgeInsets.all(0),
+    //       decoration: BoxDecoration(
+    //         borderRadius: BorderRadius.circular(10.0),
+    //         color: Colors.white,
+    //         boxShadow: [
+    //           BoxShadow(
+    //             color: Colors.black.withOpacity(0.3),
+    //             spreadRadius: 5,
+    //             blurRadius: 10,
+    //             offset: Offset(0, 3),
+    //           ),
+    //         ],
+    //       ),
+    //       child: Align(
+    //         alignment: Alignment.topCenter,
+    //         child: Container(
+    //           width: 70.0,
+    //           height: 70.0,
+    //           // color: Colors.red,
+    //           child: FlatButton(
+    //             onPressed: () {
+    //               _gameStageBloc.endGame();
+    //             },
+    //             padding: EdgeInsets.zero,
+    //             shape: RoundedRectangleBorder(
+    //               borderRadius: BorderRadius.circular(10.0),
+    //             ),
+    //             child: Image.asset(
+    //               'assets/images/hang_faces/orc.png',
+    //               fit: BoxFit.fill,
+    //             ),
+    //           ),
+    //         ),
+    //       ), // later this will be the selector dart for a character
+    //     )
+    //   ],
+    // );
   }
 
   Widget _buildIntro() {
