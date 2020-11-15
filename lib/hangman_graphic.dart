@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-// import 'package:hang_royal/enum_collection.dart';
+import 'package:rive/rive.dart';
+import 'package:flutter/services.dart';
 
 import 'game_stage_bloc.dart';
 
@@ -14,6 +15,29 @@ class HangmanGraphic extends StatefulWidget {
 }
 
 class _HangmanGraphicState extends State<HangmanGraphic> {
+  final riveFileName = 'assets/rive/orc.riv';
+  Artboard _artboard;
+
+  @override
+  void initState() {
+    _loadRiveFile();
+    super.initState();
+  }
+
+  // loads a Rive file
+  void _loadRiveFile() async {
+    final bytes = await rootBundle.load(riveFileName);
+    final file = RiveFile();
+
+    if (file.import(bytes)) {
+      // Select an animation by its name
+      setState(() => _artboard = file.mainArtboard
+        ..addController(
+          SimpleAnimation('dead'),
+        ));
+    }
+  }
+
   String getAssetUrl(int hangingStatus) {
     String baseUrl = 'assets/images/hang_characters/orc/';
 
@@ -41,6 +65,25 @@ class _HangmanGraphicState extends State<HangmanGraphic> {
     }
   }
 
+  Widget selectGraphic(hangingStatus) {
+    if (hangingStatus.data < 6) {
+      return Image.asset(
+        getAssetUrl(hangingStatus.data),
+        fit: BoxFit.fill,
+      );
+    } else if (_artboard != null) {
+      return Rive(
+        artboard: _artboard,
+        fit: BoxFit.cover,
+      );
+    } else {
+      return Image.asset(
+        getAssetUrl(hangingStatus.data),
+        fit: BoxFit.fill,
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
@@ -54,10 +97,7 @@ class _HangmanGraphicState extends State<HangmanGraphic> {
               child: Container(
                 width: 350.0,
                 height: 350.0,
-                child: Image.asset(
-                  getAssetUrl(hangingStatus.data),
-                  fit: BoxFit.fill,
-                ),
+                child: selectGraphic(hangingStatus),
               ),
             ),
           );
