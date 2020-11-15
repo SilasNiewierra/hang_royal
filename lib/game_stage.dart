@@ -4,6 +4,7 @@ import 'package:hang_royal/enum_collection.dart';
 import 'package:hang_royal/hangman_graphic.dart';
 import 'package:hang_royal/power_items.dart';
 import 'package:hang_royal/puzzle.dart';
+import 'package:hang_royal/rive_template.dart';
 import 'letter_picker.dart';
 
 class GameStage extends StatefulWidget {
@@ -168,7 +169,7 @@ class _GameStageState extends State<GameStage> {
         children: <Widget>[
           Container(
             margin: EdgeInsets.all(30.0),
-            child: Image.asset('assets/images/texts/intro-title.png'),
+            child: Image.asset('assets/images/texts/flat-intro.png'),
           ),
           Container(
             height: 50,
@@ -181,21 +182,40 @@ class _GameStageState extends State<GameStage> {
 
   Widget _buildEnd(GameState gameState) {
     if (gameState == GameState.failed) {
-      return Container(
+      return Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            _buildGraphics(),
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text("GAME OVER"),
-                  Text("The word was: " + _gameStageBloc.curGuessWord.value),
-                  _buildNewGameButton(),
-                ],
+            // _buildGraphics(),
+            Container(
+              width: 300.0,
+              height: 300.0,
+              child: Align(
+                alignment: Alignment.topCenter,
+                child: Container(
+                  width: 300.0,
+                  height: 300.0,
+                  child: RiveTemplate(
+                    assetName: 'orc.riv',
+                    gameStageBloc: _gameStageBloc,
+                  ),
+                  // Image.asset('assets/images/texts/game-over.png')
+                ),
               ),
             ),
+            Column(
+              children: [
+                Text(
+                  "The word was: " + _gameStageBloc.curGuessWord.value,
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20.0,
+                      color: Colors.white),
+                ),
+                _buildNewGameButton(),
+              ],
+            ),
+            Container()
           ],
         ),
       );
@@ -204,7 +224,20 @@ class _GameStageState extends State<GameStage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text("YAY, congratulations! You guessed it"),
+            Container(
+              width: 500.0,
+              height: 500.0,
+              child: Align(
+                alignment: Alignment.topCenter,
+                child: Container(
+                    width: 500.0,
+                    height: 500.0,
+                    child: Image.asset('assets/images/texts/flat-won.png')),
+              ),
+            ),
+            Container(
+              height: 50,
+            ),
             _buildNewGameButton(),
           ],
         ),
