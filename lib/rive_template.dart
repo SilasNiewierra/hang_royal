@@ -52,7 +52,7 @@ class _RiveTemplateState extends State<RiveTemplate> {
         stream: widget.gameStageBloc.hangingParts,
         builder: (BuildContext ctx, AsyncSnapshot<int> hangingStatus) {
           return Container(
-            width: 350.0,
+            width: 550.0,
             height: 350.0,
             child: Align(
               alignment: Alignment.topCenter,
