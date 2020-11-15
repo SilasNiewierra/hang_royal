@@ -141,9 +141,18 @@ class _GameStageState extends State<GameStage> {
               width: 70.0,
               height: 70.0,
               // color: Colors.red,
-              child: Image.asset(
-                'assets/images/hang_faces/orc.png',
-                fit: BoxFit.fill,
+              child: FlatButton(
+                onPressed: () {
+                  _gameStageBloc.endGame();
+                },
+                padding: EdgeInsets.zero,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                child: Image.asset(
+                  'assets/images/hang_faces/orc.png',
+                  fit: BoxFit.fill,
+                ),
               ),
             ),
           ), // later this will be the selector dart for a character
@@ -159,7 +168,10 @@ class _GameStageState extends State<GameStage> {
         children: <Widget>[
           Container(
             margin: EdgeInsets.all(30.0),
-            child: Image.asset('assets/images/texts/game-title.png'),
+            child: Image.asset('assets/images/texts/intro-title.png'),
+          ),
+          Container(
+            height: 50,
           ),
           _buildNewGameButton()
         ],
@@ -213,7 +225,16 @@ class _GameStageState extends State<GameStage> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10.0),
         ),
-        child: Image.asset("assets/images/buttons/new-game-button.png"),
+        child: Text(
+          'NEW GAME',
+          style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 30.0,
+              color: Colors.white,
+              letterSpacing: 5.0),
+        ),
+
+        //Image.asset("assets/images/buttons/new-game-button.png"),
       ),
     );
   }

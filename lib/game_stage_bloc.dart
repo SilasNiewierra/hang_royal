@@ -24,6 +24,15 @@ class GameStageBloc {
     _hangingBodyPartsController.sink.add(0);
   }
 
+  void endGame() {
+    curGameState.value = GameState.idle;
+    hangingBodyParts.value.clear();
+    var guessWord = '';
+    curGuessWord.value = guessWord;
+    _guessedCharacterController.sink.add([]);
+    _hangingBodyPartsController.sink.add(0);
+  }
+
   void updateGuessedLetter(List<String> updatedGuessedLetters) {
     _guessedCharacterController.sink.add(updatedGuessedLetters);
     _checkIfWon(updatedGuessedLetters);
