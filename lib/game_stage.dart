@@ -30,8 +30,13 @@ class _GameStageState extends State<GameStage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.amber,
+      // backgroundColor: Colors.amber,
       body: Container(
+        // decoration: BoxDecoration(
+        //     gradient: LinearGradient(
+        //         begin: Alignment.topRight,
+        //         end: Alignment.bottomLeft,
+        //         colors: [Colors.blue, Colors.red])),
         child: _buildGameScreen(),
       ),
     );
@@ -76,7 +81,6 @@ class _GameStageState extends State<GameStage> {
           Container(
             width: 700,
             height: 300,
-            padding: EdgeInsets.fromLTRB(30.0, 0.0, 30.0, 0.0),
             decoration: BoxDecoration(
               color: Colors.white,
               shape: BoxShape.rectangle,
@@ -103,20 +107,25 @@ class _GameStageState extends State<GameStage> {
         Container(
           width: 700,
           height: 500,
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage('assets/images/graphics-background.png'),
-              fit: BoxFit.cover,
-            ),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.3),
-                spreadRadius: 5,
-                blurRadius: 10,
-                offset: Offset(0, 3),
-              ),
-            ],
-          ),
+          // decoration: BoxDecoration(
+          //   // image: DecorationImage(
+          //   //   image: AssetImage('assets/images/graphics-background.png'),
+          //   //   fit: BoxFit.cover,
+          //   // ),
+          //   color: Colors.white,
+          //   borderRadius: BorderRadius.only(
+          //     bottomLeft: Radius.circular(15.0),
+          //     bottomRight: Radius.circular(15.0),
+          //   ),
+          //   boxShadow: [
+          //     BoxShadow(
+          //       color: Colors.black.withOpacity(0.3),
+          //       spreadRadius: 5,
+          //       blurRadius: 10,
+          //       offset: Offset(0, 3),
+          //     ),
+          //   ],
+          // ),
           child: HangmanGraphic(gameStageBloc: _gameStageBloc),
         ),
         Container(
@@ -251,6 +260,7 @@ class _GameStageState extends State<GameStage> {
     return Container(
       width: 200,
       height: 70,
+      margin: EdgeInsets.all(20.0),
       decoration: BoxDecoration(
           image: DecorationImage(
               image: AssetImage("assets/images/buttons/button.png"),
