@@ -61,7 +61,7 @@ class _LetterPickerState extends State<LetterPicker> {
           return Container(
             padding: EdgeInsets.symmetric(horizontal: 30.0),
             decoration: BoxDecoration(
-              color: Colors.green,
+              color: Colors.white,
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(15.0),
                 topRight: Radius.circular(15.0),
@@ -121,8 +121,8 @@ class _LetterPickerState extends State<LetterPicker> {
   Widget _buildLetterBox(List<String> guessedLetters, String letter) {
     letter = letter.toUpperCase();
     return Container(
-      width: 40.0,
-      height: 40.0,
+      width: 35.0,
+      height: 35.0,
       child: FlatButton(
         shape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
@@ -130,7 +130,7 @@ class _LetterPickerState extends State<LetterPicker> {
           letter,
           style: TextStyle(
               fontWeight: FontWeight.normal,
-              fontSize: 35.0,
+              fontSize: 30.0,
               color: guessedLetters.contains(letter)
                   ? Colors.grey.withOpacity(0.6)
                   : Colors.grey[800]),

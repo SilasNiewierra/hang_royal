@@ -2,11 +2,30 @@ import 'dart:math';
 
 class GuessWordGenerator {
   var _possibleWords = [
-    'seal',
-    'chick',
-    'grasshoper',
-    'dog',
-    'narwhale',
+    "Aardvark",
+    "Elephant",
+    "GreyParrot",
+    "Lion",
+    "Dog",
+    "Agout",
+    "Albacore",
+    "Albatross",
+    "Alligator",
+    "Allosaurus",
+    "Badger",
+    "Eagle",
+    "Python",
+    "Owl",
+    "Beluga",
+    "Duck",
+    "Dolphin",
+    "Snake",
+    "Fish",
+    "Shark",
+    "Leopard",
+    "Goat",
+    "Squirrel",
+    "Frog"
   ];
 
   String generateWord() {

@@ -19,9 +19,9 @@ class _PowerItemsState extends State<PowerItems> {
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-        width: 400,
-        height: 100,
-        transform: Matrix4.translationValues(0.0, -150.0, 0.0),
+        width: 300,
+        height: 80,
+        transform: Matrix4.translationValues(0.0, -120.0, 0.0),
         decoration: BoxDecoration(
           color: Colors.white,
           shape: BoxShape.rectangle,

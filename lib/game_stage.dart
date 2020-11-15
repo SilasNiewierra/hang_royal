@@ -67,23 +67,26 @@ class _GameStageState extends State<GameStage> {
       child: Column(
         children: <Widget>[
           Expanded(
-            flex: 1,
-            child: Container(color: Colors.blue, child: _buildGraphics()),
+            flex: 2,
+            child: Container(
+              // color: Colors.blue,
+              child: _buildGraphics(),
+            ),
           ),
           Expanded(
-            flex: 1,
+            flex: 3,
             child: Container(
-              color: Colors.red,
+              // color: Colors.red,
               child: Center(
                   child: Puzzle(
                       guessWord: guessWord, gameStageBloc: _gameStageBloc)),
             ),
           ),
           Expanded(
-            flex: 1,
+            flex: 2,
             child: Container(
               decoration: BoxDecoration(
-                color: Colors.green,
+                // color: Colors.green,
                 shape: BoxShape.rectangle,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(25.0),
@@ -93,7 +96,7 @@ class _GameStageState extends State<GameStage> {
               child: Stack(
                 children: [
                   LetterPicker(gameStageBloc: _gameStageBloc),
-                  // PowerItems(),
+                  PowerItems(),
                 ],
               ),
             ),
@@ -111,8 +114,9 @@ class _GameStageState extends State<GameStage> {
           top: 0,
           left: 0,
           child: Container(
-            width: 70,
-            height: 70,
+            width: 50,
+            height: 50,
+            margin: EdgeInsets.all(10.0),
             padding: EdgeInsets.all(0),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10.0),
@@ -133,9 +137,7 @@ class _GameStageState extends State<GameStage> {
                 height: 70.0,
                 // color: Colors.red,
                 child: FlatButton(
-                  onPressed: () {
-                    // _gameStageBloc.endGame();
-                  },
+                  onPressed: () {},
                   padding: EdgeInsets.zero,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.0),
@@ -152,11 +154,14 @@ class _GameStageState extends State<GameStage> {
         Positioned(
           top: 0,
           right: 0,
-          child: IconButton(
-            onPressed: () {
-              _gameStageBloc.endGame();
-            },
-            icon: Icon(Icons.clear),
+          child: Container(
+            margin: EdgeInsets.all(10.0),
+            child: IconButton(
+              onPressed: () {
+                _gameStageBloc.endGame();
+              },
+              icon: Icon(Icons.clear),
+            ),
           ),
         ),
       ],
