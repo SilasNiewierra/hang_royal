@@ -277,7 +277,7 @@ class _GameStageState extends State<GameStage> {
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 20.0,
-                      color: Colors.white),
+                      color: Colors.grey[800]),
                 ),
                 _buildNewGameButton(),
               ],
