@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:hang_royal/guess_word_generator.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'enum_collection.dart';
 
@@ -16,6 +17,17 @@ class GameStageBloc {
   Stream<int> get hangingParts => _hangingBodyPartsController.stream;
   ValueNotifier<PlayableCharacters> curPlayableCharacter =
       ValueNotifier<PlayableCharacters>(PlayableCharacters.orc);
+
+  ValueNotifier<int> curLevel = ValueNotifier<int>(0);
+
+  //Incrementing level
+  _incrementLevel() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    int _level = (prefs.getInt('level') ?? 0) + 1;
+    print('increment level' + _level.toString());
+    prefs.setInt('level', _level);
+    curLevel.value = _level;
+  }
 
   void createNewGame() {
     curGameState.value = GameState.running;
@@ -41,6 +53,10 @@ class GameStageBloc {
     _checkIfWon(updatedGuessedLetters);
   }
 
+  void updateLevel(int level) {
+    curLevel.value = level;
+  }
+
   void updatePlayableCharacter(PlayableCharacters playableCharacter) {
     curPlayableCharacter.value = playableCharacter;
   }
@@ -56,6 +72,7 @@ class GameStageBloc {
     });
     if (won) {
       curGameState.value = GameState.succeeded;
+      _incrementLevel();
     }
   }
 

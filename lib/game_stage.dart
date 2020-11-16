@@ -7,6 +7,7 @@ import 'package:hang_royal/power_items.dart';
 import 'package:hang_royal/puzzle.dart';
 import 'package:hang_royal/rive_template.dart';
 import 'package:hang_royal/won_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'letter_picker.dart';
 
 class GameStage extends StatefulWidget {
@@ -16,12 +17,33 @@ class GameStage extends StatefulWidget {
 
 class _GameStageState extends State<GameStage> {
   GameStageBloc _gameStageBloc;
+  int _level = 0;
 
   @override
   void initState() {
     super.initState();
     _gameStageBloc = GameStageBloc();
+    _loadLevel();
   }
+
+  _loadLevel() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _level = (prefs.getInt('level') ?? 0);
+      _gameStageBloc.updateLevel(_level);
+      print('current level:' + _level.toString());
+    });
+  }
+
+  //Set level for test purposes
+  // _setLevel(int levelValue) async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   setState(() {
+  //     _level = levelValue;
+  //     prefs.setInt('level', _level);
+  //     print('current level:' + _level.toString());
+  //   });
+  // }
 
   @override
   void dispose() {
@@ -262,6 +284,7 @@ class _GameStageState extends State<GameStage> {
   }
 
   Widget _buildNewGameButton() {
+    print("level: " + _gameStageBloc.curLevel.value.toString());
     return Container(
       width: 200,
       height: 70,

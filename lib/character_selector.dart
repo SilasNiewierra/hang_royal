@@ -14,7 +14,7 @@ class CharacterSelector extends StatefulWidget {
 
 class _CharacterSelectorState extends State<CharacterSelector> {
   String baseAssetUrl = "assets/images/hang_faces/";
-  String assetEnding = ".png";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,35 +32,54 @@ class _CharacterSelectorState extends State<CharacterSelector> {
       crossAxisCount: 2,
       // Generate 100 widgets that display their index in the List.
       children: List.generate(PlayableCharacters.values.length, (index) {
-        String characterName = (PlayableCharacters.values[index])
-            .toString()
-            ?.split('.')
-            ?.elementAt(1);
         return Center(
-          child: FlatButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            child: Container(
-              width: 100.0,
-              height: 100.0,
-              // color: Colors.red,
-              child: FlatButton(
-                onPressed: () {
-                  widget.gameStageBloc.updatePlayableCharacter(
-                      PlayableCharacters.values[index]);
-                  Navigator.pop(context);
-                },
-                padding: EdgeInsets.zero,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-                child: Image.asset(
-                  baseAssetUrl + characterName + assetEnding,
-                  fit: BoxFit.fill,
-                ),
-              ),
-            ),
+          child: Container(
+            width: 100.0,
+            height: 100.0,
+            child: ValueListenableBuilder(
+                valueListenable: widget.gameStageBloc.curLevel,
+                builder: (ctx, level, child) {
+                  String characterName = 'lock';
+                  if (level >= (index * 3)) {
+                    characterName = (PlayableCharacters.values[index])
+                        .toString()
+                        ?.split('.')
+                        ?.elementAt(1);
+                  }
+                  return FlatButton(
+                    onPressed: () {
+                      if (characterName != 'lock') {
+                        widget.gameStageBloc.updatePlayableCharacter(
+                            PlayableCharacters.values[index]);
+                        Navigator.pop(context);
+                      }
+                    },
+                    padding: EdgeInsets.zero,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        Image.asset(
+                          baseAssetUrl + characterName + ".png",
+                          fit: BoxFit.fill,
+                        ),
+                        characterName == 'lock'
+                            ? Positioned(
+                                bottom: 0,
+                                child: Text(
+                                  (index * 3).toString(),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 70.0),
+                                ),
+                              )
+                            : Container(),
+                      ],
+                    ),
+                  );
+                }),
           ),
         );
       }),
