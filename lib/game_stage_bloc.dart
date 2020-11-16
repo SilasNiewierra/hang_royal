@@ -14,9 +14,12 @@ class GameStageBloc {
   Stream<List<String>> get guessedLetters => _guessedCharacterController.stream;
   var _hangingBodyPartsController = BehaviorSubject<int>();
   Stream<int> get hangingParts => _hangingBodyPartsController.stream;
+  ValueNotifier<PlayableCharacters> curPlayableCharacter =
+      ValueNotifier<PlayableCharacters>(PlayableCharacters.orc);
 
   void createNewGame() {
     curGameState.value = GameState.running;
+    curPlayableCharacter.value = PlayableCharacters.orc;
     hangingBodyParts.value.clear();
     var guessWord = GuessWordGenerator().generateWord();
     curGuessWord.value = guessWord;
@@ -36,6 +39,10 @@ class GameStageBloc {
   void updateGuessedLetter(List<String> updatedGuessedLetters) {
     _guessedCharacterController.sink.add(updatedGuessedLetters);
     _checkIfWon(updatedGuessedLetters);
+  }
+
+  void updatePlayableCharacter(PlayableCharacters playableCharacter) {
+    curPlayableCharacter.value = playableCharacter;
   }
 
   void _checkIfWon(List<String> guessedLetters) {

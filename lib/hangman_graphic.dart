@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hang_royal/enum_collection.dart';
 import 'package:rive/rive.dart';
 import 'package:flutter/services.dart';
 
@@ -38,8 +39,9 @@ class _HangmanGraphicState extends State<HangmanGraphic> {
     }
   }
 
-  String getAssetUrl(int hangingStatus) {
-    String baseUrl = 'assets/images/hang_characters/orc/';
+  String getAssetUrl(int hangingStatus, String character) {
+    String characterName = character?.split('.')?.elementAt(1).toString();
+    String baseUrl = 'assets/images/hang_characters/' + characterName + '/';
 
     switch (hangingStatus) {
       case 1:
@@ -65,20 +67,27 @@ class _HangmanGraphicState extends State<HangmanGraphic> {
     }
   }
 
-  Widget selectGraphic(hangingStatus) {
-    if (hangingStatus.data < 6) {
-      return Image.asset(
-        getAssetUrl(hangingStatus.data),
-        fit: BoxFit.fill,
-      );
-    } else if (_artboard != null) {
-      return Rive(
-        artboard: _artboard,
-        fit: BoxFit.cover,
-      );
+  Widget selectGraphic(hangingStatus, PlayableCharacters character) {
+    if (hangingStatus != null && hangingStatus.data != null) {
+      if (hangingStatus.data < 6) {
+        return Image.asset(
+          getAssetUrl(hangingStatus.data, character.toString()),
+          fit: BoxFit.fill,
+        );
+      } else if (_artboard != null) {
+        return Rive(
+          artboard: _artboard,
+          fit: BoxFit.cover,
+        );
+      } else {
+        return Image.asset(
+          getAssetUrl(hangingStatus.data, character.toString()),
+          fit: BoxFit.fill,
+        );
+      }
     } else {
       return Image.asset(
-        getAssetUrl(hangingStatus.data),
+        'assets/images/hang_characters/orc/default.png',
         fit: BoxFit.fill,
       );
     }
@@ -97,7 +106,13 @@ class _HangmanGraphicState extends State<HangmanGraphic> {
               child: Container(
                 // width: 350.0,
                 height: 250.0,
-                child: selectGraphic(hangingStatus),
+                child: ValueListenableBuilder(
+                  valueListenable: widget.gameStageBloc.curPlayableCharacter,
+                  builder: (BuildContext context, PlayableCharacters character,
+                      Widget child) {
+                    return selectGraphic(hangingStatus, character);
+                  },
+                ),
               ),
             ),
           );

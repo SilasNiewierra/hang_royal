@@ -27,7 +27,7 @@ class _RiveTemplateState extends State<RiveTemplate> {
 
   // loads a Rive file
   void _loadRiveFile() async {
-    final riveFileName = 'assets/rive/' + widget.assetName;
+    final riveFileName = 'assets/rive/' + widget.assetName + '.riv';
     final bytes = await rootBundle.load(riveFileName);
     final file = RiveFile();
 

@@ -50,6 +50,9 @@ flutter:
   assets:
     - assets/images/power_items/
     - assets/images/hang_characters/orc/
+    - assets/images/hang_characters/witch/
+    - assets/images/hang_characters/wolf/
+    - assets/images/hang_characters/pirate/
     - assets/images/hang_faces/
     - assets/images/texts/
     - assets/images/buttons/

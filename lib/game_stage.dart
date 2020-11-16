@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hang_royal/character_selector.dart';
 import 'package:hang_royal/game_stage_bloc.dart';
 import 'package:hang_royal/enum_collection.dart';
 import 'package:hang_royal/hangman_graphic.dart';
@@ -138,14 +139,29 @@ class _GameStageState extends State<GameStage> {
                 height: 70.0,
                 // color: Colors.red,
                 child: FlatButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => CharacterSelector(
+                                gameStageBloc: _gameStageBloc,
+                              )),
+                    );
+                  },
                   padding: EdgeInsets.zero,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.0),
                   ),
-                  child: Image.asset(
-                    'assets/images/hang_faces/orc.png',
-                    fit: BoxFit.fill,
+                  child: ValueListenableBuilder(
+                    valueListenable: _gameStageBloc.curPlayableCharacter,
+                    builder: (BuildContext context,
+                        PlayableCharacters character, Widget child) {
+                      return Image.asset(
+                          'assets/images/hang_faces/' +
+                              assetNameBuilder(character) +
+                              '.png',
+                          fit: BoxFit.fill);
+                    },
                   ),
                 ),
               ),
@@ -169,6 +185,10 @@ class _GameStageState extends State<GameStage> {
     );
   }
 
+  String assetNameBuilder(PlayableCharacters character) {
+    return character.toString().split('.').elementAt(1).split(')').elementAt(0);
+  }
+
   Widget _buildIntro() {
     return Center(
       child: Column(
@@ -189,6 +209,13 @@ class _GameStageState extends State<GameStage> {
 
   Widget _buildEnd(GameState gameState) {
     if (gameState == GameState.failed) {
+      String characterName = _gameStageBloc.curPlayableCharacter
+          .toString()
+          .split('.')
+          .elementAt(1)
+          .split(')')
+          .elementAt(0);
+      print(characterName);
       return Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -203,7 +230,7 @@ class _GameStageState extends State<GameStage> {
                   width: 300.0,
                   height: 300.0,
                   child: RiveTemplate(
-                    assetName: 'orc.riv',
+                    assetName: characterName,
                     gameStageBloc: _gameStageBloc,
                   ),
                   // Image.asset('assets/images/texts/game-over.png')
