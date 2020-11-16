@@ -5,6 +5,7 @@ import 'package:hang_royal/hangman_graphic.dart';
 import 'package:hang_royal/power_items.dart';
 import 'package:hang_royal/puzzle.dart';
 import 'package:hang_royal/rive_template.dart';
+import 'package:hang_royal/won_screen.dart';
 import 'letter_picker.dart';
 
 class GameStage extends StatefulWidget {
@@ -166,74 +167,6 @@ class _GameStageState extends State<GameStage> {
         ),
       ],
     );
-
-    // Column(
-    //   children: [
-    //     Container(
-    //       width: 700,
-    //       height: 500,
-    //       // decoration: BoxDecoration(
-    //       //   // image: DecorationImage(
-    //       //   //   image: AssetImage('assets/images/graphics-background.png'),
-    //       //   //   fit: BoxFit.cover,
-    //       //   // ),
-    //       //   color: Colors.white,
-    //       //   borderRadius: BorderRadius.only(
-    //       //     bottomLeft: Radius.circular(15.0),
-    //       //     bottomRight: Radius.circular(15.0),
-    //       //   ),
-    //       //   boxShadow: [
-    //       //     BoxShadow(
-    //       //       color: Colors.black.withOpacity(0.3),
-    //       //       spreadRadius: 5,
-    //       //       blurRadius: 10,
-    //       //       offset: Offset(0, 3),
-    //       //     ),
-    //       //   ],
-    //       // ),
-    //       child: HangmanGraphic(gameStageBloc: _gameStageBloc),
-    //     ),
-    //     Container(
-    //       width: 70,
-    //       height: 70,
-    //       transform: Matrix4.translationValues(0.0, -35.0, 0.0),
-    //       padding: EdgeInsets.all(0),
-    //       decoration: BoxDecoration(
-    //         borderRadius: BorderRadius.circular(10.0),
-    //         color: Colors.white,
-    //         boxShadow: [
-    //           BoxShadow(
-    //             color: Colors.black.withOpacity(0.3),
-    //             spreadRadius: 5,
-    //             blurRadius: 10,
-    //             offset: Offset(0, 3),
-    //           ),
-    //         ],
-    //       ),
-    //       child: Align(
-    //         alignment: Alignment.topCenter,
-    //         child: Container(
-    //           width: 70.0,
-    //           height: 70.0,
-    //           // color: Colors.red,
-    //           child: FlatButton(
-    //             onPressed: () {
-    //               _gameStageBloc.endGame();
-    //             },
-    //             padding: EdgeInsets.zero,
-    //             shape: RoundedRectangleBorder(
-    //               borderRadius: BorderRadius.circular(10.0),
-    //             ),
-    //             child: Image.asset(
-    //               'assets/images/hang_faces/orc.png',
-    //               fit: BoxFit.fill,
-    //             ),
-    //           ),
-    //         ),
-    //       ), // later this will be the selector dart for a character
-    //     )
-    //   ],
-    // );
   }
 
   Widget _buildIntro() {
@@ -294,36 +227,8 @@ class _GameStageState extends State<GameStage> {
         ),
       );
     } else if (gameState == GameState.succeeded) {
-      return Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Container(
-              width: 500.0,
-              height: 500.0,
-              child: Align(
-                alignment: Alignment.topCenter,
-                child: Container(
-                    width: 500.0,
-                    height: 500.0,
-                    child: Image.asset('assets/images/texts/flat-won.png')),
-              ),
-            ),
-            Column(
-              children: [
-                Text(
-                  "The word was: " + _gameStageBloc.curGuessWord.value,
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20.0,
-                      color: Colors.grey[800]),
-                ),
-                _buildNewGameButton(),
-              ],
-            ),
-          ],
-        ),
-      );
+      return WonScreen(
+          button: _buildNewGameButton(), gameStageBloc: _gameStageBloc);
     } else {
       return null;
     }
