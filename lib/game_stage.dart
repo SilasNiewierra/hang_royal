@@ -309,10 +309,18 @@ class _GameStageState extends State<GameStage> {
                     child: Image.asset('assets/images/texts/flat-won.png')),
               ),
             ),
-            Container(
-              height: 50,
+            Column(
+              children: [
+                Text(
+                  "The word was: " + _gameStageBloc.curGuessWord.value,
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20.0,
+                      color: Colors.grey[800]),
+                ),
+                _buildNewGameButton(),
+              ],
             ),
-            _buildNewGameButton(),
           ],
         ),
       );
