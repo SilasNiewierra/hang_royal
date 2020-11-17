@@ -16,15 +16,15 @@ class PowerItems extends StatefulWidget {
 class _PowerItemsState extends State<PowerItems> {
   String baseAssetUrl = "assets/images/power_items/";
   List powers = [
-    ['Wand', 'power-wand.png', Powers.freeze],
+    ['Freeze', 'power-freeze.png', Powers.freeze],
     [
       'Crystal',
       'power-cristal.png',
       Powers.reveal,
     ],
     [
-      'Lamp',
-      'power-lamp.png',
+      'Wand',
+      'power-wand.png',
       Powers.reset,
     ],
   ];

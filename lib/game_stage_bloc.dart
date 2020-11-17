@@ -35,7 +35,24 @@ class GameStageBloc {
 
   void freezeBodyParts() {}
 
-  void revealLetter() {}
+  void revealLetter() {
+    List<String> curGuessedLetters = _guessedCharacterController.value;
+    List splitted = curGuessWord.value.split('');
+    bool revealed = false;
+    splitted.forEach((element) {
+      print(element);
+      if (!revealed) {
+        if (!curGuessedLetters.contains(element)) {
+          revealed = true;
+          List<String> updatedGuessedLetters = curGuessedLetters;
+          updatedGuessedLetters.add(element);
+          _guessedCharacterController.sink.add(updatedGuessedLetters);
+          _checkIfWon(updatedGuessedLetters);
+          return;
+        }
+      }
+    });
+  }
 
   void createNewGame() {
     curGameState.value = GameState.running;
