@@ -58,6 +58,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/power_items/
+    - assets/images/freeze/
     - assets/images/hang_characters/orc/
     - assets/images/hang_characters/witch/
     - assets/images/hang_characters/wolf/

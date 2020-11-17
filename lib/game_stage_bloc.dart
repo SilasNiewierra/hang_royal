@@ -18,6 +18,9 @@ class GameStageBloc {
   ValueNotifier<PlayableCharacters> curPlayableCharacter =
       ValueNotifier<PlayableCharacters>(PlayableCharacters.orc);
 
+  ValueNotifier<FreezeState> curFreezeState =
+      ValueNotifier<FreezeState>(FreezeState.none);
+
   ValueNotifier<int> curLevel = ValueNotifier<int>(0);
 
   void _incrementLevel() async {
@@ -33,7 +36,36 @@ class GameStageBloc {
     _hangingBodyPartsController.sink.add(0);
   }
 
-  void freezeBodyParts() {}
+  void freezeBodyParts() {
+    if (curFreezeState.value == FreezeState.none) {
+      curFreezeState.value = FreezeState.cracks_none;
+    }
+  }
+
+  void updateFreezeBodyParts() {
+    switch (curFreezeState.value) {
+      case FreezeState.none:
+        curFreezeState.value = FreezeState.cracks_none;
+        break;
+      case FreezeState.cracks_none:
+        curFreezeState.value = FreezeState.cracks_one;
+        break;
+      case FreezeState.cracks_one:
+        curFreezeState.value = FreezeState.cracks_two;
+        break;
+      case FreezeState.cracks_two:
+        curFreezeState.value = FreezeState.cracks_three;
+        break;
+      case FreezeState.cracks_three:
+        curFreezeState.value = FreezeState.none;
+        break;
+      case FreezeState.explode:
+        curFreezeState.value = FreezeState.none;
+        break;
+      default:
+        curFreezeState.value = FreezeState.none;
+    }
+  }
 
   void revealLetter() {
     List<String> curGuessedLetters = _guessedCharacterController.value;
@@ -62,6 +94,7 @@ class GameStageBloc {
     curGuessWord.value = guessWord;
     _guessedCharacterController.sink.add([]);
     _hangingBodyPartsController.sink.add(0);
+    curFreezeState.value = FreezeState.none;
   }
 
   void endGame() {
@@ -71,6 +104,7 @@ class GameStageBloc {
     curGuessWord.value = guessWord;
     _guessedCharacterController.sink.add([]);
     _hangingBodyPartsController.sink.add(0);
+    curFreezeState.value = FreezeState.none;
   }
 
   void updateGuessedLetter(List<String> updatedGuessedLetters) {
@@ -102,6 +136,10 @@ class GameStageBloc {
   }
 
   void updateHangingBodyParts() {
+    if (curFreezeState.value != FreezeState.none) {
+      updateFreezeBodyParts();
+      return;
+    }
     if (!hangingBodyParts.value.contains(BodyParts.head)) {
       hangingBodyParts.value.add(BodyParts.head);
       _hangingBodyPartsController.sink.add(1);

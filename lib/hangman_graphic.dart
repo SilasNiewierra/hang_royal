@@ -19,6 +19,9 @@ class _HangmanGraphicState extends State<HangmanGraphic> {
   final riveFileName = 'assets/rive/orc.riv';
   Artboard _artboard;
 
+  final riveFreezeFileName = 'assets/rive/freeze.riv';
+  Artboard _freezeArtboard;
+
   @override
   void initState() {
     _loadRiveFile();
@@ -35,6 +38,17 @@ class _HangmanGraphicState extends State<HangmanGraphic> {
       setState(() => _artboard = file.mainArtboard
         ..addController(
           SimpleAnimation('dead'),
+        ));
+    }
+
+    final freezeBytes = await rootBundle.load(riveFreezeFileName);
+    final freezeFile = RiveFile();
+
+    if (freezeFile.import(freezeBytes)) {
+      // Select an animation by its name
+      setState(() => _freezeArtboard = freezeFile.mainArtboard
+        ..addController(
+          SimpleAnimation('explode'),
         ));
     }
   }
@@ -93,28 +107,79 @@ class _HangmanGraphicState extends State<HangmanGraphic> {
     }
   }
 
+  Widget selectFreezeGraphic(FreezeState freezeStatus) {
+    if (freezeStatus == FreezeState.none) {
+      return Container();
+    } else if (freezeStatus == FreezeState.explode) {
+      if (_freezeArtboard != null) {
+        _freezeArtboard..addController(SimpleAnimation('explode'));
+        return Container(
+          width: 200,
+          height: 200,
+          child: Rive(
+            artboard: _freezeArtboard,
+            fit: BoxFit.cover,
+          ),
+        );
+      }
+      return Container();
+    } else {
+      String freezeName =
+          freezeStatus.toString()?.split('.')?.elementAt(1).toString();
+
+      String assetUrl = 'assets/images/freeze/' + freezeName + '.png';
+      return Image.asset(
+        assetUrl,
+        fit: BoxFit.fill,
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
         stream: widget.gameStageBloc.hangingParts,
         builder: (BuildContext ctx, AsyncSnapshot<int> hangingStatus) {
-          return Container(
-            // width: 350.0,
-            height: 250.0,
-            child: Align(
-              alignment: Alignment.topCenter,
-              child: Container(
+          return Stack(
+            children: [
+              Container(
                 // width: 350.0,
                 height: 250.0,
-                child: ValueListenableBuilder(
-                  valueListenable: widget.gameStageBloc.curPlayableCharacter,
-                  builder: (BuildContext context, PlayableCharacters character,
-                      Widget child) {
-                    return selectGraphic(hangingStatus, character);
-                  },
+                child: Align(
+                  alignment: Alignment.topCenter,
+                  child: Container(
+                    // width: 350.0,
+                    height: 250.0,
+                    child: ValueListenableBuilder(
+                      valueListenable:
+                          widget.gameStageBloc.curPlayableCharacter,
+                      builder: (BuildContext context,
+                          PlayableCharacters character, Widget child) {
+                        return selectGraphic(hangingStatus, character);
+                      },
+                    ),
+                  ),
                 ),
               ),
-            ),
+              Container(
+                // width: 350.0,
+                height: 250.0,
+                child: Align(
+                  alignment: Alignment.topCenter,
+                  child: Container(
+                    // width: 350.0,
+                    height: 250.0,
+                    child: ValueListenableBuilder(
+                      valueListenable: widget.gameStageBloc.curFreezeState,
+                      builder: (BuildContext context, FreezeState freezeState,
+                          Widget child) {
+                        return selectFreezeGraphic(freezeState);
+                      },
+                    ),
+                  ),
+                ),
+              ),
+            ],
           );
         });
   }
