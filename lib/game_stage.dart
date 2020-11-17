@@ -120,7 +120,7 @@ class _GameStageState extends State<GameStage> {
               child: Stack(
                 children: [
                   LetterPicker(gameStageBloc: _gameStageBloc),
-                  PowerItems(),
+                  PowerItems(gameStageBloc: _gameStageBloc),
                 ],
               ),
             ),

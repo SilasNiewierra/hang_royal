@@ -1,19 +1,48 @@
 import 'package:flutter/material.dart';
+import 'package:hang_royal/game_stage_bloc.dart';
+import 'package:hang_royal/enum_collection.dart';
+
 // import 'game_stage_bloc.dart';
 
 class PowerItems extends StatefulWidget {
+  final GameStageBloc gameStageBloc;
+
+  PowerItems({@required this.gameStageBloc});
+
   @override
   _PowerItemsState createState() => _PowerItemsState();
 }
 
 class _PowerItemsState extends State<PowerItems> {
   String baseAssetUrl = "assets/images/power_items/";
-  List powerItems = [
-    ['Poison', 'power-poison.png'],
-    ['Wand', 'power-wand.png'],
-    ['Crystal', 'power-cristal.png'],
-    ['Lamp', 'power-lamp.png'],
+  List powers = [
+    ['Wand', 'power-wand.png', Powers.freeze],
+    [
+      'Crystal',
+      'power-cristal.png',
+      Powers.reveal,
+    ],
+    [
+      'Lamp',
+      'power-lamp.png',
+      Powers.reset,
+    ],
   ];
+
+  void selectPower(Powers powerItems) {
+    switch (powerItems) {
+      case Powers.freeze:
+        widget.gameStageBloc.freezeBodyParts();
+        break;
+      case Powers.reset:
+        widget.gameStageBloc.resetBodyParts();
+        break;
+      case Powers.reveal:
+        widget.gameStageBloc.revealLetter();
+        break;
+      default:
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,15 +72,15 @@ class _PowerItemsState extends State<PowerItems> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: List.generate(
-              powerItems.length,
-              (index) =>
-                  _buildPowerItem(powerItems[index][0], powerItems[index][1])),
+              powers.length,
+              (index) => _buildPowerItem(
+                  powers[index][0], powers[index][1], powers[index][2])),
         ),
       ),
     );
   }
 
-  Widget _buildPowerItem(String name, String assetUrl) {
+  Widget _buildPowerItem(String name, String assetUrl, Powers powerFunction) {
     String imageUrl = baseAssetUrl + assetUrl;
     return Container(
       width: 60.0,
@@ -59,6 +88,7 @@ class _PowerItemsState extends State<PowerItems> {
       child: FlatButton(
         child: Image.asset(imageUrl),
         onPressed: () {
+          selectPower(powerFunction);
           // onPowerOne();
         },
         padding: EdgeInsets.fromLTRB(0, 0, 0, 0),

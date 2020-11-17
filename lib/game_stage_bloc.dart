@@ -20,14 +20,22 @@ class GameStageBloc {
 
   ValueNotifier<int> curLevel = ValueNotifier<int>(0);
 
-  //Incrementing level
-  _incrementLevel() async {
+  void _incrementLevel() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     int _level = (prefs.getInt('level') ?? 0) + 1;
     print('increment level' + _level.toString());
     prefs.setInt('level', _level);
     curLevel.value = _level;
   }
+
+  void resetBodyParts() {
+    hangingBodyParts.value.clear();
+    _hangingBodyPartsController.sink.add(0);
+  }
+
+  void freezeBodyParts() {}
+
+  void revealLetter() {}
 
   void createNewGame() {
     curGameState.value = GameState.running;
