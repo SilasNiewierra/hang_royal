@@ -31,10 +31,18 @@ dependencies:
   rxdart: ^0.24.1
   rive: ^0.6.2+2
   shared_preferences: ^0.5.12+4
-
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_launcher_icons: ^0.8.1
+
+flutter_icons:
+  ios: true
+  android: true
+  image_path_ios: "assets/launcher/icon.png"
+  image_path_android: "assets/launcher/icon.png"
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
