@@ -118,6 +118,7 @@ class _GameStageState extends State<GameStage> {
                 ),
               ),
               child: Stack(
+                alignment: Alignment.bottomCenter,
                 children: [
                   LetterPicker(gameStageBloc: _gameStageBloc),
                   PowerItems(gameStageBloc: _gameStageBloc),
@@ -159,7 +160,6 @@ class _GameStageState extends State<GameStage> {
               child: Container(
                 width: 70.0,
                 height: 70.0,
-                // color: Colors.red,
                 child: FlatButton(
                   onPressed: () {
                     Navigator.push(
@@ -187,9 +187,20 @@ class _GameStageState extends State<GameStage> {
                   ),
                 ),
               ),
-            ), // later this will be the selector dart for a character
+            ),
           ),
         ),
+        Positioned(
+            child: Container(
+          margin: EdgeInsets.fromLTRB(70.0, 25, 0, 0),
+          child: Text(
+            _gameStageBloc.curLevel.value.toString(),
+            style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20.0,
+                color: Colors.grey[800]),
+          ),
+        )),
         Positioned(
           top: 0,
           right: 0,
@@ -240,7 +251,6 @@ class _GameStageState extends State<GameStage> {
       print(characterName);
       return Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             // _buildGraphics(),
             Container(
@@ -255,12 +265,25 @@ class _GameStageState extends State<GameStage> {
                     assetName: characterName,
                     gameStageBloc: _gameStageBloc,
                   ),
-                  // Image.asset('assets/images/texts/game-over.png')
                 ),
               ),
             ),
+
             Column(
               children: [
+                Container(
+                  width: 250.0,
+                  height: 250.0,
+                  child: Align(
+                    alignment: Alignment.topCenter,
+                    child: Container(
+                        width: 250.0,
+                        height: 250.0,
+                        child: Image.asset(
+                            'assets/images/texts/flat-game-over.png')),
+                  ),
+                ),
+                _buildNewGameButton(),
                 Text(
                   "The word was: " + _gameStageBloc.curGuessWord.value,
                   style: TextStyle(
@@ -268,7 +291,14 @@ class _GameStageState extends State<GameStage> {
                       fontSize: 20.0,
                       color: Colors.grey[800]),
                 ),
-                _buildNewGameButton(),
+                Text(
+                  "Your current level is: " +
+                      _gameStageBloc.curLevel.value.toString(),
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20.0,
+                      color: Colors.grey[800]),
+                ),
               ],
             ),
             Container()

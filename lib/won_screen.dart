@@ -77,6 +77,7 @@ class _WonScreenState extends State<WonScreen> {
           ),
           Column(
             children: [
+              widget.button,
               Text(
                 "The word was: " + widget.gameStageBloc.curGuessWord.value,
                 style: TextStyle(
@@ -84,7 +85,14 @@ class _WonScreenState extends State<WonScreen> {
                     fontSize: 20.0,
                     color: Colors.grey[800]),
               ),
-              widget.button,
+              Text(
+                "Your current level is: " +
+                    widget.gameStageBloc.curLevel.value.toString(),
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20.0,
+                    color: Colors.grey[800]),
+              ),
             ],
           ),
         ],
