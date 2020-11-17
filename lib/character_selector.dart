@@ -44,7 +44,7 @@ class _CharacterSelectorState extends State<CharacterSelector> {
                 valueListenable: widget.gameStageBloc.curLevel,
                 builder: (ctx, level, child) {
                   String characterName = 'lock';
-                  if (level >= (index * 3)) {
+                  if (level >= (index * 10)) {
                     characterName = (PlayableCharacters.values[index])
                         .toString()
                         ?.split('.')
@@ -73,7 +73,7 @@ class _CharacterSelectorState extends State<CharacterSelector> {
                             ? Positioned(
                                 bottom: 0,
                                 child: Text(
-                                  (index * 3).toString(),
+                                  (index * 10).toString(),
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 70.0),
