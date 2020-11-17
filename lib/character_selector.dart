@@ -21,7 +21,11 @@ class _CharacterSelectorState extends State<CharacterSelector> {
       // appBar: AppBar(
       //   title: Text("Second Route"),
       // ),
-      body: createGrid(),
+      body: GestureDetector(
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child: createGrid()),
     );
   }
 

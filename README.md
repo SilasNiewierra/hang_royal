@@ -1,6 +1,7 @@
 # hang_royal
 
-A new Flutter project.
+Hangman but with a twist and some power items.
+<!-- ![Image of Yaktocat](./assets/images/github/homescreen.jpg) -->
 
 ## Getting Started
 
