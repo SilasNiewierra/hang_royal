@@ -99,7 +99,9 @@ class _GameStageState extends State<GameStage> {
                 builder: (ctx, hasSelected, widget) {
                   return hasSelected
                       ? Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisAlignment: guessWord.length > 4
+                              ? MainAxisAlignment.start
+                              : MainAxisAlignment.center,
                           children: [
                             Text(
                               _cleanCategoryName(_selectedItem),

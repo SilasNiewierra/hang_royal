@@ -132,7 +132,8 @@ class GameStageBloc {
   }
 
   void _checkIfWon(List<String> guessedLetters) {
-    var letters = curGuessWord.value.split('');
+    var letters =
+        curGuessWord.value.replaceAll(new RegExp(r"\s+"), "").split('');
     var won = true;
     letters.forEach((letter) {
       if (!guessedLetters.contains(letter)) {
