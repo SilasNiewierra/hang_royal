@@ -18,11 +18,15 @@ class GameStage extends StatefulWidget {
 class _GameStageState extends State<GameStage> {
   GameStageBloc _gameStageBloc;
   int _level = 0;
+  List<DropdownMenuItem<String>> _dropdownMenuItems;
+  String _selectedItem = '';
 
   @override
   void initState() {
     super.initState();
     _gameStageBloc = GameStageBloc();
+    _dropdownMenuItems = buildDropDownMenuItems();
+    _selectedItem = _dropdownMenuItems[0].value;
     _loadLevel();
   }
 
@@ -31,19 +35,8 @@ class _GameStageState extends State<GameStage> {
     setState(() {
       _level = (prefs.getInt('level') ?? 0);
       _gameStageBloc.updateLevel(_level);
-      print('current level:' + _level.toString());
     });
   }
-
-  //Set level for test purposes
-  // _setLevel(int levelValue) async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   setState(() {
-  //     _level = levelValue;
-  //     prefs.setInt('level', _level);
-  //     print('current level:' + _level.toString());
-  //   });
-  // }
 
   @override
   void dispose() {
@@ -101,9 +94,18 @@ class _GameStageState extends State<GameStage> {
             flex: 3,
             child: Container(
               // color: Colors.red,
-              child: Center(
-                  child: Puzzle(
-                      guessWord: guessWord, gameStageBloc: _gameStageBloc)),
+              child: ValueListenableBuilder(
+                valueListenable: _gameStageBloc.selectedCategory,
+                builder: (ctx, hasSelected, widget) {
+                  return hasSelected
+                      ? Center(
+                          child: Puzzle(
+                              guessWord: guessWord,
+                              gameStageBloc: _gameStageBloc),
+                        )
+                      : _buildCategoryDropdown();
+                },
+              ),
             ),
           ),
           Expanded(
@@ -248,7 +250,6 @@ class _GameStageState extends State<GameStage> {
           .elementAt(1)
           .split(')')
           .elementAt(0);
-      print(characterName);
       return Center(
         child: Column(
           children: <Widget>[
@@ -314,7 +315,6 @@ class _GameStageState extends State<GameStage> {
   }
 
   Widget _buildNewGameButton() {
-    print("level: " + _gameStageBloc.curLevel.value.toString());
     return Container(
       width: 200,
       height: 70,
@@ -343,5 +343,37 @@ class _GameStageState extends State<GameStage> {
         // child: Image.asset("assets/images/buttons/button.png"),
       ),
     );
+  }
+
+  Widget _buildCategoryDropdown() {
+    return DropdownButtonHideUnderline(
+      child: DropdownButton(
+          value: _selectedItem,
+          items: _dropdownMenuItems,
+          onChanged: (value) {
+            setState(() {
+              _gameStageBloc.createGuessWord(value);
+              _selectedItem = value;
+            });
+          }),
+    );
+  }
+
+  List<DropdownMenuItem<String>> buildDropDownMenuItems() {
+    List<DropdownMenuItem<String>> items = List();
+    for (var i = 0; i < GuessWordCategories.values.length; i++) {
+      String categoryValue =
+          GuessWordCategories.values[i].toString()?.split('.')?.elementAt(1);
+      String cleanText = categoryValue.replaceAll("_", " ");
+      String categoryText =
+          "${cleanText[0].toUpperCase()}${cleanText.substring(1)}";
+      items.add(
+        DropdownMenuItem(
+          child: Text(categoryText),
+          value: categoryValue,
+        ),
+      );
+    }
+    return items;
   }
 }

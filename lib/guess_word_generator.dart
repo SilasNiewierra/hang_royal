@@ -1,4 +1,9 @@
+import 'dart:convert';
 import 'dart:math';
+
+import 'package:flutter/services.dart';
+
+import 'game_stage_bloc.dart';
 
 class GuessWordGenerator {
   var _possibleWords = [
@@ -35,8 +40,15 @@ class GuessWordGenerator {
     return _possibleWords[randomIndex].toUpperCase();
   }
 
-  // String getWordFromApi() {
-  //   // call api to get a word from a special category
-  //   // api.get(category)
-  // }
+  generateWordFromCategory(String category, GameStageBloc gameStageBloc) async {
+    String data = await rootBundle
+        .loadString('assets/data/categories/' + category + '_guesswords.json');
+    final jsonResult = json.decode(data);
+
+    List _allWords = jsonResult['words'];
+    var randomGenerator = Random();
+    var randomIndex = randomGenerator.nextInt(_allWords.length);
+    var guessWord = _allWords[randomIndex].toUpperCase();
+    gameStageBloc.setGuessWord(guessWord);
+  }
 }

@@ -23,10 +23,11 @@ class GameStageBloc {
 
   ValueNotifier<int> curLevel = ValueNotifier<int>(0);
 
+  ValueNotifier<bool> selectedCategory = ValueNotifier<bool>(false);
+
   void _incrementLevel() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     int _level = (prefs.getInt('level') ?? 0) + 1;
-    print('increment level' + _level.toString());
     prefs.setInt('level', _level);
     curLevel.value = _level;
   }
@@ -40,6 +41,15 @@ class GameStageBloc {
     if (curFreezeState.value == FreezeState.none) {
       curFreezeState.value = FreezeState.cracks_none;
     }
+  }
+
+  void setGuessWord(String incomingWord) {
+    curGuessWord.value = incomingWord;
+    selectedCategory.value = true;
+  }
+
+  void createGuessWord(String category) {
+    GuessWordGenerator().generateWordFromCategory(category, this);
   }
 
   void updateFreezeBodyParts() {
@@ -72,7 +82,6 @@ class GameStageBloc {
     List splitted = curGuessWord.value.split('');
     bool revealed = false;
     splitted.forEach((element) {
-      print(element);
       if (!revealed) {
         if (!curGuessedLetters.contains(element)) {
           revealed = true;
@@ -95,6 +104,7 @@ class GameStageBloc {
     _guessedCharacterController.sink.add([]);
     _hangingBodyPartsController.sink.add(0);
     curFreezeState.value = FreezeState.none;
+    selectedCategory.value = false;
   }
 
   void endGame() {
@@ -105,6 +115,7 @@ class GameStageBloc {
     _guessedCharacterController.sink.add([]);
     _hangingBodyPartsController.sink.add(0);
     curFreezeState.value = FreezeState.none;
+    selectedCategory.value = false;
   }
 
   void updateGuessedLetter(List<String> updatedGuessedLetters) {

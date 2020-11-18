@@ -14,3 +14,19 @@ enum FreezeState {
   cracks_three,
   explode
 }
+
+enum GuessWordCategories {
+  animals,
+  around_the_house,
+  around_the_office,
+  art,
+  colors,
+  english_literature,
+  feelings_and_emotions,
+  food_and_cooking,
+  nature,
+  people,
+  places,
+  sports,
+  travel
+}

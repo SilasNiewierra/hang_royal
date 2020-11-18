@@ -29,13 +29,28 @@ class _PuzzleState extends State<Puzzle> {
               children: List.generate(widget.guessWord.length, (index) {
                 var letter = widget.guessWord[index];
                 var hasBeenGuessed = guessedLettersSnap.data.contains(letter);
-
-                return _buildLetterBox(letter, hasBeenGuessed);
+                // Whitespace
+                if (letter.trim() == '') {
+                  return _buildWhiteSpaceBox();
+                } else {
+                  return _buildLetterBox(letter, hasBeenGuessed);
+                }
               }),
             ),
           );
         });
   }
+}
+
+Widget _buildWhiteSpaceBox() {
+  return Container(
+    width: 60.0,
+    height: 60.0,
+    decoration: BoxDecoration(
+      shape: BoxShape.rectangle,
+    ),
+    child: Container(),
+  );
 }
 
 Widget _buildLetterBox(String letter, bool hasBeenGuessed) {
