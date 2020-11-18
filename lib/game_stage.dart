@@ -99,7 +99,7 @@ class _GameStageState extends State<GameStage> {
                 builder: (ctx, hasSelected, widget) {
                   return hasSelected
                       ? Column(
-                          mainAxisAlignment: guessWord.length > 4
+                          mainAxisAlignment: guessWord.length > 10
                               ? MainAxisAlignment.start
                               : MainAxisAlignment.center,
                           children: [
@@ -134,12 +134,19 @@ class _GameStageState extends State<GameStage> {
                   topRight: Radius.circular(25.0),
                 ),
               ),
-              child: Stack(
-                alignment: Alignment.bottomCenter,
-                children: [
-                  LetterPicker(gameStageBloc: _gameStageBloc),
-                  PowerItems(gameStageBloc: _gameStageBloc),
-                ],
+              child: ValueListenableBuilder(
+                valueListenable: _gameStageBloc.selectedCategory,
+                builder: (ctx, hasSelected, widget) {
+                  return hasSelected
+                      ? Stack(
+                          alignment: Alignment.bottomCenter,
+                          children: [
+                            LetterPicker(gameStageBloc: _gameStageBloc),
+                            PowerItems(gameStageBloc: _gameStageBloc),
+                          ],
+                        )
+                      : Container();
+                },
               ),
             ),
           ),
