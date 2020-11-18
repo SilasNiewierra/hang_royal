@@ -98,10 +98,23 @@ class _GameStageState extends State<GameStage> {
                 valueListenable: _gameStageBloc.selectedCategory,
                 builder: (ctx, hasSelected, widget) {
                   return hasSelected
-                      ? Center(
-                          child: Puzzle(
-                              guessWord: guessWord,
-                              gameStageBloc: _gameStageBloc),
+                      ? Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              _cleanCategoryName(_selectedItem),
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 25.0),
+                            ),
+                            Container(
+                              margin: EdgeInsets.only(top: 30),
+                              child: Center(
+                                child: Puzzle(
+                                    guessWord: guessWord,
+                                    gameStageBloc: _gameStageBloc),
+                              ),
+                            ),
+                          ],
                         )
                       : _buildCategoryDropdown();
                 },
@@ -346,16 +359,25 @@ class _GameStageState extends State<GameStage> {
   }
 
   Widget _buildCategoryDropdown() {
-    return DropdownButtonHideUnderline(
-      child: DropdownButton(
-          value: _selectedItem,
-          items: _dropdownMenuItems,
-          onChanged: (value) {
-            setState(() {
-              _gameStageBloc.createGuessWord(value);
-              _selectedItem = value;
-            });
-          }),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(
+          "Select a category",
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30.0),
+        ),
+        DropdownButtonHideUnderline(
+          child: DropdownButton(
+              value: _selectedItem,
+              items: _dropdownMenuItems,
+              onChanged: (value) {
+                setState(() {
+                  _gameStageBloc.createGuessWord(value);
+                  _selectedItem = value;
+                });
+              }),
+        ),
+      ],
     );
   }
 
@@ -364,16 +386,21 @@ class _GameStageState extends State<GameStage> {
     for (var i = 0; i < GuessWordCategories.values.length; i++) {
       String categoryValue =
           GuessWordCategories.values[i].toString()?.split('.')?.elementAt(1);
-      String cleanText = categoryValue.replaceAll("_", " ");
-      String categoryText =
-          "${cleanText[0].toUpperCase()}${cleanText.substring(1)}";
       items.add(
         DropdownMenuItem(
-          child: Text(categoryText),
+          child: Text(
+            _cleanCategoryName(categoryValue),
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
+          ),
           value: categoryValue,
         ),
       );
     }
     return items;
+  }
+
+  String _cleanCategoryName(String categoryValue) {
+    String cleanText = categoryValue.replaceAll("_", " ");
+    return "${cleanText[0].toUpperCase()}${cleanText.substring(1)}";
   }
 }
