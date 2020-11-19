@@ -82,7 +82,7 @@ class GameStageBloc {
     List splitted = curGuessWord.value.split('');
     bool revealed = false;
     splitted.forEach((element) {
-      if (!revealed) {
+      if (!revealed && element != ' ') {
         if (!curGuessedLetters.contains(element)) {
           revealed = true;
           List<String> updatedGuessedLetters = curGuessedLetters;
