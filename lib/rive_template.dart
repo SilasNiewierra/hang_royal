@@ -35,7 +35,7 @@ class _RiveTemplateState extends State<RiveTemplate> {
       // Select an animation by its name
       setState(() => _artboard = file.mainArtboard
         ..addController(
-          SimpleAnimation('dead'),
+          SimpleAnimation('leg-right'),
         ));
     }
   }
