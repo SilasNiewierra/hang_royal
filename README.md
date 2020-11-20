@@ -17,3 +17,4 @@ Have fun :D
 ## Word Source
 The words and categories have been scraped from the 'https://www.thegamegal.com/word-generator/' by using Puppeteer.
 Afterwards they have been processed and split into .json files.
+![Image of App Screens](./assets/images/github/screen_swing_pirate.gif)
