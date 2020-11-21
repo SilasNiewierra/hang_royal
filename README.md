@@ -20,4 +20,5 @@ Afterwards they have been processed and split into .json files.
 
 ## Animations
 The animations have been created with Rive 2.
+<br/><br/>
 ![Image of App Screens](./assets/images/github/screen_swing_pirate.gif)
