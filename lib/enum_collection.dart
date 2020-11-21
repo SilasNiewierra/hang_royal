@@ -24,9 +24,12 @@ enum GuessWordCategories {
   english_literature,
   feelings_and_emotions,
   food_and_cooking,
+  math,
+  music,
   nature,
   people,
   places,
+  science,
   sports,
   travel
 }

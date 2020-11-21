@@ -145,7 +145,7 @@ class _GameStageState extends State<GameStage> {
                             PowerItems(gameStageBloc: _gameStageBloc),
                           ],
                         )
-                      : Container();
+                      : Stack(children: [_buildStartGameButton()]);
                 },
               ),
             ),
@@ -367,6 +367,37 @@ class _GameStageState extends State<GameStage> {
     );
   }
 
+  Widget _buildStartGameButton() {
+    return Container(
+      width: 200,
+      height: 70,
+      margin: EdgeInsets.all(20.0),
+      decoration: BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage("assets/images/buttons/button.png"),
+              fit: BoxFit.fill)),
+      child: FlatButton(
+        onPressed: () {
+          _gameStageBloc.createGuessWord(_selectedItem);
+        },
+        padding: EdgeInsets.zero,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        child: Text(
+          'START',
+          style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 20.0,
+              color: Colors.white,
+              letterSpacing: 5.0),
+        ),
+
+        // child: Image.asset("assets/images/buttons/button.png"),
+      ),
+    );
+  }
+
   Widget _buildCategoryDropdown() {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -375,6 +406,18 @@ class _GameStageState extends State<GameStage> {
           "Select a category",
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30.0),
         ),
+        // Container(
+        //   padding: EdgeInsets.symmetric(horizontal: 20.0),
+        //   height: 100.0,
+        //   child: Align(
+        //     alignment: Alignment.topCenter,
+        //     child: Container(
+        //       height: 100.0,
+        //       child:
+        //           Image.asset('assets/images/texts/flat-category-banner.png'),
+        //     ),
+        //   ),
+        // ),
         DropdownButtonHideUnderline(
           child: DropdownButton(
               value: _selectedItem,
