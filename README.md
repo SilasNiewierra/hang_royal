@@ -1,6 +1,6 @@
 # Hang Royal
 
-Hangman but with a twist and some power items.
+Classic Hangman but with some power items and more.
 ![Image of App Screens](./assets/images/github/screens_combined.jpg)
 
 ## Play It
@@ -17,4 +17,7 @@ Have fun :D
 ## Word Source
 The words and categories have been scraped from the 'https://www.thegamegal.com/word-generator/' by using Puppeteer.
 Afterwards they have been processed and split into .json files.
+
+## Animations
+The animations have been created with Rive 2.
 ![Image of App Screens](./assets/images/github/screen_swing_pirate.gif)
